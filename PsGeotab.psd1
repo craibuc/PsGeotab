@@ -12,7 +12,7 @@
 RootModule = 'PsGeotab.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.1.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -69,7 +69,7 @@ Description = 'PowerShell module that wraps the Geotab API.'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('Get-Session', 'Get-Device', 'Get-DiagnosticType', 'Search-StatusData')
+FunctionsToExport = @('Get-Session', 'Get-Device', 'Get-DeviceType', 'Get-DiagnosticType', 'New-DateRange', 'Search-StatusData')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -94,7 +94,7 @@ PrivateData = @{
 
     PSData = @{
 
-        Prerelease = 'alpha'
+        Prerelease = 'beta'
 
         # Tags applied to this module. These help with module discovery in online galleries.
         # Tags = @()
