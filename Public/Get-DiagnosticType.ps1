@@ -9,14 +9,14 @@ List of DiagnosticTypes.
 None.
 
 .OUTPUTS
-System.Management.Automation.PsCustomObject[].  Array of devices.
+System.Management.Automation.PsCustomObject[].  Array of diagnostic types.
 
 .EXAMPLE
 Get all devices.
 PS> Get-DiagnosticType
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.DeviceType
+https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.DiagnosticType
 
 #>
 function Get-DiagnosticType {
