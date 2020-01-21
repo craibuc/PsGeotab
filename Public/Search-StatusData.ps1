@@ -1,18 +1,28 @@
 <#
+.SYNOPSIS
 
 .PARAMETER Session
+Geotab session object.
 
 .PARAMETER DeviceId
 The device's id.
 
 .PARAMETER DiagnosticId
-Default: 'DiagnosticOdometerAdjustmentId'
+The diagnostic measurement. Default: 'DiagnosticOdometerAdjustmentId'
 
 .PARAMETER FromDate
-Today at 12:00:00
+Include diagnostic measurements after this date/time.  Default: Today at 12:00:00
 
 .PARAMETER ToDate
-Today at 23:59:59
+Include diagnostic measurements before this date/time.  Default: Today at 23:59:59
+
+.EXAMPLE
+PS> Search-StatusData -Session $Session -DeviceId 'b57'
+
+Get DiagnosticOdometerAdjustmentId diagnostics for device `b57` that occurred today.
+
+.LINK
+https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.Engine.StatusDataSearch
 
 #>
 function Search-StatusData {
