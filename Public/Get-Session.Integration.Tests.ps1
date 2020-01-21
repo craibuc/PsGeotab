@@ -38,8 +38,8 @@ Describe "Get-Session" -Tag 'integration' {
         It "throws an exception" {
 
             # act / assert
-            { Get-Session -Database $Database -Credential $Credential } | Should -Throw
-    
+            { Get-Session -Database $Database -Credential $Credential -ErrorAction Stop } | Should -Throw "Incorrect login credentials"
+
         }
     
     }
