@@ -2,7 +2,7 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 
-Describe "New-DateRange" {
+Describe "Get-DateRange" {
 
     [datetime]$From = '01/01/2019'
     [datetime]$To = '01/31/2019'
@@ -12,7 +12,7 @@ Describe "New-DateRange" {
         It "generates dates between `$From and `$To" {
 
             # act
-            $Actual = New-DateRange $From $To
+            $Actual = Get-DateRange $From $To
 
             # assert
             $Actual | Select-Object -First 1 | Should -Be ($From)
@@ -31,7 +31,7 @@ Describe "New-DateRange" {
         It "generates dates between `$From and Today" {
 
             # act
-            $Actual = New-DateRange $From
+            $Actual = Get-DateRange $From
 
             # assert
             $Actual | Select-Object -First 1 | Should -Be ($From)
@@ -42,7 +42,7 @@ Describe "New-DateRange" {
     
     }
 
-    Context "Parameters supplied via pipeline" {
+    Context "`$From and `$To supplied via pipeline" {
 
         $Hash = [PsCustomObject]@{
             activeFrom=[datetime]'01/01/2020'
@@ -52,7 +52,7 @@ Describe "New-DateRange" {
         It "generates dates between $($Hash.activeFrom) and $($Hash.activeTo)" {
 
             # act
-            $Actual = $Hash | New-DateRange
+            $Actual = $Hash | Get-DateRange
 
             # assert
             $Actual | Select-Object -First 1 | Should -Be ($Hash.activeFrom)
@@ -60,5 +60,62 @@ Describe "New-DateRange" {
             $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be (($Hash.activeTo - $Hash.activeFrom).Days + 1)
         }
 
-    }
+    } # /context
+
+    Context "`$FirstOfMonth supplied" {
+
+        [datetime]$From = '01/01/2019'
+        [datetime]$To = '02/15/2019'
+    
+        It "Generates dates that are the first of the month" {
+
+            # act
+            $Actual = Get-DateRange -From $From -To $To -FirstOfMonth
+
+            # assert
+            $Actual | Select-Object -First 1 | Should -Be $From
+            $Actual | Select-Object -Last 1 | Should -Be ([datetime]'02/01/2019')
+            $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 2
+
+        }
+    } # /context
+
+    Context "`$ExcludeFuture supplied" {
+
+        [datetime]$From = '01/01/2019'
+        [datetime]$To = (Get-Date).AddDays(10)
+        
+        $Expected = (Get-Date).Date
+
+        It "Generates dates that are <= Today" {
+
+            # act
+            $Actual = Get-DateRange -From $From -To $To -ExcludeFuture
+
+            # assert
+            $Actual | Select-Object -First 1 | Should -Be $From
+            $Actual | Select-Object -Last 1 | Should -Be $Expected
+            $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be (($Expected - $From).Days + 1)
+
+        }
+    } # /context
+
+    Context "`$FirstOfMonth and `$ExcludeFuture supplied" {
+
+        [datetime]$From = (get-date -day 1).addmonths(-1).date # first of the month, one month ago
+        [datetime]$To = (Get-Date).AddMonths(2)
+        
+        It "Generates dates that are <= Today and are first of the month" {
+
+            # act
+            $Actual = Get-DateRange -From $From -To $To -FirstOfMonth -ExcludeFuture
+
+            # assert
+            $Actual | Select-Object -First 1 | Should -Be $From
+            $Actual | Select-Object -Last 1 | Should -Be (Get-Date -Day 1).Date
+            $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 2
+
+        }
+    } # /context
+
 }
