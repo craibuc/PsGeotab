@@ -7,7 +7,7 @@
     ForEach-Object {
 
         # dot-source script
-        Write-Debug "Loading $($_.BaseName)"
+        # Write-Debug "Loading $($_.BaseName)"
         . $_
 
         # export functions in the `Public` folder
