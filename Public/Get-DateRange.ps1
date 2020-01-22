@@ -80,9 +80,9 @@ function Get-DateRange {
             if ($FirstOfMonth)
             { 
                 # include dates that are MM/01/YYYY
-                if ( $From.Day -eq 1 ) { $From }
+                if ( $From.Day -eq 1 ) { $From.Date }
             }
-            else { $From }
+            else { $From.Date }
 
             # increment
             $From = $From.AddDays(1)
