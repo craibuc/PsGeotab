@@ -8,14 +8,26 @@ The beginning of the range.
 .PARAMETER To
 The end of the range.
 
-.PARAMETER FirstOfMonth
-Include only the first day of every month.
-
 .PARAMETER ExcludeFuture
 Exclude dates that are greater than `Today`.
 
+.PARAMETER StartOfMonth
+Include only the first day of every month.
+
+.PARAMETER EndOfMonth
+Include only the last day of every month.
+
+.PARAMETER FirstDate
+Include the first date in the supplied range.
+
+.PARAMETER LastDate
+Include the last date in the supplied range.
+
+.PARAMETER AddTime
+Add a time to the returned date.
+
 .INPUTS
-None.
+System.DateTime or None.
 
 .OUTPUTS
 System.DateTime
@@ -56,33 +68,54 @@ function Get-DateRange {
         [Alias('activeTo')]
         [datetime]$To = (Get-Date),
 
-        [switch]$FirstOfMonth,
+        [switch]$ExcludeFuture,
+        
+        [switch]$StartOfMonth,
+        [switch]$EndOfMonth,
 
-        [switch]$ExcludeFuture
+        [switch]$FirstDate,
+        [switch]$LastDate,
+
+        [timespan]$Time = '00:00:00'
+
     )
 
     Begin {
         Write-Debug "$($MyInvocation.MyCommand.Name)::Begin"
         
-        Write-Debug "FirstOfMonth: $FirstOfMonth"
         Write-Debug "ExcludeFuture: $ExcludeFuture"
+        Write-Debug "StartOfMonth: $StartOfMonth"
+        Write-Debug "EndOfMonth: $EndOfMonth"
     }
     Process
     {
         Write-Debug "$($MyInvocation.MyCommand.Name)::Process"
 
-        if ($ExcludeFuture) { $To = (Get-Date).Date }
+        if ($ExcludeFuture) 
+        {
+            $Today = (Get-Date)
+            $To = if ( $Today.Date -lt $To.Date ) { $Today } else { $To }
+        }
+    
+        $Save = $From
+
         Write-Debug "$($From.Date) - $($To.Date)"
 
         while ( $From.Date -le $To.Date ) 
         {
+            if ($FirstDate -and $From.Date -eq $Save.Date) { $From.Date + $Time }
+            elseif ($LastDate -and $From.Date -eq $To.Date) { $From.Date + $Time }
+            else
+            {
+                # -StartOfMonth and mm/1/yy
+                if ( $StartOfMonth -and $From.Day -eq 1) { $From.Date + $Time }
+                
+                # -EndOfMonth and mm/[28|29|30|31]/yy
+                if ( $EndOfMonth -and $From.Date -eq $From.Date.AddDays(-$From.Day).AddMonths(1) ) { $From.Date + $Time }
 
-            if ($FirstOfMonth)
-            { 
-                # include dates that are MM/01/YYYY
-                if ( $From.Day -eq 1 ) { $From.Date }
+                # -StartOfMonth and -EndOfMonth not supplied
+                elseif ( !$StartOfMonth -and !$EndOfMonth ) { $From.Date + $Time }
             }
-            else { $From.Date }
 
             # increment
             $From = $From.AddDays(1)
@@ -91,7 +124,7 @@ function Get-DateRange {
     }
     End 
     { 
-        Write-Debug "$($MyInvocation.MyCommand.Name)::End" 
+        Write-Debug "$($MyInvocation.MyCommand.Name)::End"
     }
 
 }
