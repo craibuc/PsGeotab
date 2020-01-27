@@ -7,19 +7,22 @@ Geotab session object.
 .PARAMETER DeviceId
 The device's id.
 
-.PARAMETER DiagnosticId
-The diagnostic measurement. Default: 'DiagnosticOdometerAdjustmentId'
-
 .PARAMETER FromDate
 Include diagnostic measurements after this date/time.  Default: Today at 12:00:00
 
 .PARAMETER ToDate
 Include diagnostic measurements before this date/time.  Default: Today at 23:59:59
 
+.PARAMETER DiagnosticId
+The diagnostic measurement. Default: 'DiagnosticOdometerAdjustmentId'
+
 .EXAMPLE
 PS> Search-StatusData -Session $Session -DeviceId 'b57'
 
 Get DiagnosticOdometerAdjustmentId diagnostics for device `b57` that occurred today.
+
+.NOTES
+When searching for status data including DeviceSearch and DiagnosticSearch the system will return all records that match the search criteria and interpolate the value at the provided from/to dates when there is no record that corresponds to the date. Interpolated records are dynamically created when the request is made and can be identified as not having the ID property populated. Records with an ID are stored in the database.
 
 .LINK
 https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.Engine.StatusDataSearch
@@ -32,15 +35,19 @@ function Search-StatusData {
 		[Parameter(Mandatory=$true, ValueFromPipeline=$true)]
         [PsCustomObject]$Session,
 
-        [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [Alias('id')]
         [string]$DeviceId,
     
-        [string]$DiagnosticId='DiagnosticOdometerAdjustmentId',
-
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [Alias('activeFrom')]
         [datetime]$FromDate = [DateTime]::Today,
 
-        [datetime]$ToDate = [DateTime]::Today.AddDays(1).AddSeconds(-1)
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [Alias('activeTo')]
+        [datetime]$ToDate = [DateTime]::Today.AddDays(1).AddSeconds(-1),
+
+        [string]$DiagnosticId='DiagnosticOdometerAdjustmentId'
     )
 
     Begin
@@ -51,17 +58,17 @@ function Search-StatusData {
         Write-Debug "Uri: $Uri"
 
         Write-Debug "DiagnosticId: $DiagnosticId"
-        Write-Debug "FromDate: $FromDate"
-        Write-Debug "ToDate: $ToDate"
     }
     Process
     {
         Write-Debug "$($MyInvocation.MyCommand.Name)::Process"
 
-        foreach ($Id in $DeviceId) 
-        {
-            Write-Debug "Id: $Id"
-
+        # foreach ($Id in $DeviceId) 
+        # {
+            Write-Debug "DeviceId: $DeviceId"
+            Write-Debug "FromDate: $FromDate"
+            Write-Debug "ToDate: $ToDate"
+    
             # payload as JSON
             $Body = @{
                 method = 'Get'
@@ -69,7 +76,7 @@ function Search-StatusData {
                     typeName = 'StatusData'
                     credentials = $Session.credentials
                     search = @{
-                        deviceSearch = @{ id = $Id }
+                        deviceSearch = @{ id = $DeviceId }
                         diagnosticSearch = @{ id = $DiagnosticId }
                         fromDate = $FromDate.ToUniversalTime().ToString("o")
                         toDate = $toDate.ToUniversalTime().ToString("o")
@@ -77,7 +84,7 @@ function Search-StatusData {
                 }
             } 
 
-            Write-Debug $Body | ConvertTo-Json -Depth 3
+            Write-Debug ($Body | ConvertTo-Json -Depth 3)
 
             # POST
             $Content = ( Invoke-WebRequest -Uri $uri -Method Post -Body ($Body | ConvertTo-Json -Depth 3 ) -ContentType "application/json" ).Content | ConvertFrom-Json
@@ -87,7 +94,7 @@ function Search-StatusData {
             # otherwise raise an exception
             elseif ($Content.error) { Write-Error -Message $Content.error.message }
                     
-        } # /foreach
+        # } # /foreach
 
     } # /process
 
