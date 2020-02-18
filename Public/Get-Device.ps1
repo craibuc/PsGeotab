@@ -73,7 +73,7 @@ function Get-Device
 		$Body['params']['search'] = @{name = $Name}
 	}
 	
-	Write-Debug ($Body | ConvertTo-Json -Depth 3)
+	# Write-Debug ($Body | ConvertTo-Json -Depth 3)
 
 	# POST
 	$Content = ( Invoke-WebRequest -Uri $uri -Method Post -Body ($Body | ConvertTo-Json -Depth 3) -ContentType "application/json" ).Content | ConvertFrom-Json
