@@ -54,6 +54,8 @@ function Get-Session
 	Write-Debug "UserName: $($Credential.UserName)"
 	# Write-Debug "Password: $Password"
 
+	$Headers = @{'Cache-Control' = 'no-cache'}
+
 	# payload as JSON
 	$body = @{
 		method = 'Authenticate'
@@ -63,9 +65,14 @@ function Get-Session
 			password = $Password
 		}
 	} | ConvertTo-Json
+	
+	# Write-Debug $Body
+
+	# forcing TLS v1.2
+	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 	# POST, process responses, then grab relevant data
-	$Content = ( Invoke-WebRequest -Uri $Uri -Method Post -Body $Body -ContentType "application/json"  ).Content | ConvertFrom-Json
+	$Content = ( Invoke-WebRequest -Uri $Uri -Method Post -Body $Body -ContentType "application/json" -Headers $Headers ).Content | ConvertFrom-Json
 
 	# returns PsCustomObject representation of credentials
 	if ( $Content.result ) { [PsCustomObject]$Content.result }
@@ -74,3 +81,5 @@ function Get-Session
 	elseif ($Content.error) { Write-Error -Message $Content.error.message }
 
 }
+
+$body = @{method = 'Authenticate';params = @{database = $Database;userName = ($Credential.UserName);password = $Password}}
