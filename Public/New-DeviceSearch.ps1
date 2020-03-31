@@ -11,8 +11,8 @@ Search for Devices of this DeviceType.
 .PARAMETER fromDate
 Search for Devices that were active at this date or after. Set to UTC now to search for only currently active (non-archived) devices.
 
-.PARAMETER  groups
-Search for Devices that are a member of these GroupSearch(s). Available GroupSearch options are:.
+.PARAMETER  groupId
+Search for Devices that are a member of these GroupSearch(s).
 
 .PARAMETER keywords
 Search for entities that contain specific keywords in all wildcard string-searchable fields.
@@ -53,7 +53,7 @@ function New-DeviceSearch {
         [datetime]$fromDate,
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [string]$groups,
+        [string]$groupId,
 
         [Parameter(ValueFromPipelineByPropertyName)]
         [string]$keywords,
@@ -82,7 +82,7 @@ function New-DeviceSearch {
     if ($comment) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'comment' -Value $comment }
     if ($deviceType) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'deviceType' -Value $deviceType }
     if ($fromDate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'fromDate' -Value $fromDate.ToUniversalTime().ToString("o") }
-    if ($groups) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'groups' -Value $groups }
+    if ($groupId) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'groupId' -Value $groupId }
     if ($keywords) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'keywords' -Value $keywords }
     if ($licensePlate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'licensePlate' -Value $licensePlate }
     if ($name) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'name' -Value $name }
