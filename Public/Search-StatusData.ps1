@@ -35,7 +35,7 @@ function Search-StatusData {
 		[Parameter(Mandatory=$true, ValueFromPipeline=$true)]
         [PsCustomObject]$Session,
 
-        [Parameter(ValueFromPipelineByPropertyName)]
+        [Parameter(ValueFromPipelineByPropertyName,ValueFromPipeline)]
         [Alias('id')]
         [string]$DeviceId,
     
