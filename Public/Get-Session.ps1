@@ -47,12 +47,10 @@ function Get-Session
 	$Uri = 'https://my.geotab.com/apiv1'
 
 	# convert SecureString to "plain text"
-	$BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Credential.Password)
-	$Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
-	
+	$Password = $Credential | ConvertTo-PlainText
+
 	Write-Debug "Database: $Database"
 	Write-Debug "UserName: $($Credential.UserName)"
-	# Write-Debug "Password: $Password"
 
 	# payload as JSON
 	$body = @{
