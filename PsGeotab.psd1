@@ -69,7 +69,7 @@ Description = 'PowerShell module that wraps the Geotab API.'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('Get-DateRange', 'Get-Device', 'Get-DeviceType', 'Get-DiagnosticType', 'Get-Session', 'Search-StatusData')
+FunctionsToExport = @('Get-DateRange', 'Get-Device', 'Get-DeviceType', 'Get-DiagnosticType', 'Get-Session', 'Save-Settings', 'Search-StatusData')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
