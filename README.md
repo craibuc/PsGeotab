@@ -99,6 +99,33 @@ PS> Get-Device -Session $Session |
     # save it to a file on the current user's desktop
     Out-File "~/Desktop/com.geotab.odometer.csv"
 ```
+
+### Search-FuelTaxDetail
+
+```powershell
+# create a session
+$Session = Get-Session ...
+
+# get a list of devices
+Get-Device -Session $Session | 
+
+# select the device's `id` property
+Select-Object id |
+
+# create a device-search object (the `id` property is passed via pipeline)
+New-DeviceSearch | 
+
+# search for fuel-tax details for device within the date range
+Search-FuelTaxDetail -Session $Session -FromDate '01/01/2020' -ToDate '03/31/2020 23:59:59' |
+
+# select the desired properties (convert from UTC to local)
+Select-Object id, @{name='entertime';expression={([datetime]$_.entertime).ToLocalTime()}}, enterodometer, exitodometer, @{name='exittime';expression={([datetime]$_.exittime).ToLocalTime()}}, jurisdiction | 
+
+# display as a table
+Format-Table
+
+```
+
 ### Pro Tips
 
 #### Use `$PSDefaultParameterValues` to set a parameter value that is common to multiple functions
