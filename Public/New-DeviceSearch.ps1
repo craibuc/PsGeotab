@@ -77,20 +77,42 @@ function New-DeviceSearch {
         [string]$id
     )
 
-    $DeviceSearch = [pscustomobject]@{}
+    begin {}
 
-    if ($comment) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'comment' -Value $comment }
-    if ($deviceType) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'deviceType' -Value $deviceType }
-    if ($fromDate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'fromDate' -Value $fromDate.ToUniversalTime().ToString("o") }
-    if ($groupId) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'groupId' -Value $groupId }
-    if ($keywords) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'keywords' -Value $keywords }
-    if ($licensePlate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'licensePlate' -Value $licensePlate }
-    if ($name) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'name' -Value $name }
-    if ($serialNumber) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'serialNumber' -Value $serialNumber }
-    if ($vehicleIdentificationNumber) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'vehicleIdentificationNumber' -Value $vehicleIdentificationNumber }
-    if ($toDate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'toDate' -Value $toDate.ToUniversalTime().ToString("o") }
-    if ($id) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'id' -Value $id }
+    process
+    {
+        $DeviceSearch = @{}
 
-    $DeviceSearch
+        if ($comment) { $DeviceSearch['comment'] = $comment }
+        if ($deviceType) { $DeviceSearch['deviceType'] = $deviceType }
+        if ($fromDate) { $DeviceSearch['fromDate'] = $fromDate.ToUniversalTime().ToString("o") }
+        if ($groupId) { $DeviceSearch['groupId'] = $groupId }
+        if ($keywords) { $DeviceSearch['keywords'] = $keywords }
+        if ($licensePlate) { $DeviceSearch['licensePlate'] = $licensePlate }
+        if ($name) { $DeviceSearch['name'] = $name }
+        if ($serialNumber) { $DeviceSearch['serialNumber'] = $serialNumber }
+        if ($vehicleIdentificationNumber) { $DeviceSearch['vehicleIdentificationNumber'] = $vehicleIdentificationNumber }
+        if ($toDate) { $DeviceSearch['toDate'] = $toDate.ToUniversalTime().ToString("o") }
+        if ($id) { $DeviceSearch['id'] = $id }
+    
+        [pscustomobject]$DeviceSearch
+
+        # $DeviceSearch = [pscustomobject]@{}
+
+        # if ($comment) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'comment' -Value $comment }
+        # if ($deviceType) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'deviceType' -Value $deviceType }
+        # if ($fromDate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'fromDate' -Value $fromDate.ToUniversalTime().ToString("o") }
+        # if ($groupId) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'groupId' -Value $groupId }
+        # if ($keywords) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'keywords' -Value $keywords }
+        # if ($licensePlate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'licensePlate' -Value $licensePlate }
+        # if ($name) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'name' -Value $name }
+        # if ($serialNumber) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'serialNumber' -Value $serialNumber }
+        # if ($vehicleIdentificationNumber) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'vehicleIdentificationNumber' -Value $vehicleIdentificationNumber }
+        # if ($toDate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'toDate' -Value $toDate.ToUniversalTime().ToString("o") }
+        # if ($id) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'id' -Value $id }
+    
+        # $DeviceSearch
+    }
+    end {}
 
 }
