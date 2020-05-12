@@ -1,6 +1,17 @@
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+# /PsGeotab
+$ProjectDirectory = Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent
+
+# /PsGeotab/PsGeotab/Public
+$PublicPath = Join-Path $ProjectDirectory "/PsGeotab/Public/"
+
+# /PsGeotab/Tests/Fixtures/
+# $FixturesDirectory = Join-Path $ProjectDirectory "/Tests/Fixtures/"
+
+# Get-DataRange.ps1
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
-. "$here\$sut"
+
+# . /PsGeotab/PsGeotab/Public/Get-DataRange.ps1
+. (Join-Path $PublicPath $sut)
 
 Describe "Get-DateRange" {
 

@@ -1,6 +1,17 @@
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+# /PsGeotab
+$ProjectDirectory = Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent
+
+# /PsGeotab/PsGeotab/Private
+$PrivatePath = Join-Path $ProjectDirectory "/PsGeotab/Private/"
+
+# /PsGeotab/Tests/Fixtures/
+# $FixturesDirectory = Join-Path $ProjectDirectory "/Tests/Fixtures/"
+
+# ConvertTo-PlainText.ps1
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
-. "$here\$sut"
+
+# . /PsGeotab/PsGeotab/Private/ConvertTo-PlainText.ps1
+. (Join-Path $PrivatePath $sut)
 
 Describe "ConvertTo-PlainText" -tag 'Unit' {
 

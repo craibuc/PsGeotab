@@ -1,10 +1,17 @@
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+# /PsGeotab
+$ProjectDirectory = Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent
 
-# dependencies
-. "$here\New-DeviceSearch.ps1"
+# /PsGeotab/PsGeotab/Public
+$PublicPath = Join-Path $ProjectDirectory "/PsGeotab/Public/"
 
+# /PsGeotab/Tests/Fixtures/
+# $FixturesDirectory = Join-Path $ProjectDirectory "/Tests/Fixtures/"
+
+# Search-FuelTaxDetail.ps1
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
-. "$here\$sut"
+
+# . /PsGeotab/PsGeotab/Public/Search-FuelTaxDetail.ps1
+. (Join-Path $PublicPath $sut)
 
 Describe "Search-FuelTaxDetail" {
 
