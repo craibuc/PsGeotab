@@ -1,0 +1,95 @@
+{
+    "result": [
+        {
+            "driverGroups": [
+                {
+                    "children": [],
+                    "id": "b27EE"
+                }
+            ],
+            "keys": [],
+            "viewDriversOwnDataOnly": true,
+            "licenseProvince": "",
+            "licenseNumber": "",
+            "acceptedEULA": 17,
+            "driveGuideVersion": 0,
+            "activeDashboardReports": [],
+            "activeFrom": "2017-12-01T00:44:35.687Z",
+            "activeTo": "2050-01-01T00:00:00.000Z",
+            "availableDashboardReports": [],
+            "cannedResponseOptions": [],
+            "changePassword": false,
+            "comment": "",
+            "companyGroups": [
+                {
+                    "children": [],
+                    "id": "b27EE"
+                }
+            ],
+            "dateFormat": "MM/dd/yy HH:mm:ss",
+            "defaultGoogleMapStyle": "Roadmap",
+            "defaultMapEngine": "MapBox",
+            "defaultOpenStreetMapStyle": "MapBox",
+            "defaultHereMapStyle": "Roadmap",
+            "defaultPage": "helpGuide",
+            "designation": "",
+            "employeeNo": "",
+            "firstName": "First",
+            "fuelEconomyUnit": "MPGUS",
+            "electricEnergyEconomyUnit": "MPGEUS",
+            "hosRuleSet": "America8DayPassenger",
+            "isYardMoveEnabled": true,
+            "isPersonalConveyanceEnabled": true,
+            "isExemptHOSEnabled": false,
+            "maxPCDistancePerDay": 0,
+            "authorityName": "Acme Anvils, Inc.",
+            "authorityAddress": "Street, City, XX 00000",
+            "id": "bAF",
+            "isEULAAccepted": true,
+            "isNewsEnabled": true,
+            "isLabsEnabled": true,
+            "isMetric": false,
+            "language": "en",
+            "firstDayOfWeek": "Sunday",
+            "lastName": "Last",
+            "mapViews": [
+                {
+                    "name": "North America",
+                    "viewport": {
+                        "x": -181,
+                        "y": 69,
+                        "width": 145.5,
+                        "height": -52
+                    },
+                    "highlightGroups": []
+                }
+            ],
+            "name": "first.last@domain.tld",
+            "privateUserGroups": [],
+            "reportGroups": [],
+            "securityGroups": [
+                {
+                    "id": "GroupDriveUserSecurityId",
+                    "color": {
+                        "a": 255,
+                        "b": 0,
+                        "g": 0,
+                        "r": 0
+                    },
+                    "children": []
+                }
+            ],
+            "showClickOnceWarning": true,
+            "timeZoneId": "America/Chicago",
+            "userAuthenticationType": "BasicAuthentication",
+            "zoneDisplayMode": "Default",
+            "companyName": "Acme Anvils, Inc.",
+            "companyAddress": "Street, City, XX 00000",
+            "carrierNumber": "12345678",
+            "lastAccessDate": "2020-03-08T14:29:50.720Z",
+            "isDriver": true,
+            "isEmailReportEnabled": true
+        }
+    ],
+    "jsonrpc": "2.0"
+}
