@@ -27,31 +27,35 @@ Describe "New-GeotabUser" -tag 'unit' {
 
         $Parameters = @(
             @{Name='Session';Type='PsCustomObject';Mandatory=$true}
-            @{Name='activeFrom';Type='datetime'}
+            @{Name='activeFrom';Type='datetime';Mandatory=$false}
             @{Name='activeTo';Type='datetime';Mandatory=$false}
-            @{Name='comment';Type='string'}
-            @{Name='countryCode';Type='string'}
-            @{Name='driverGroups';Type='string[]'}
-            @{Name='employeeNo';Type='string'}
-            @{Name='firstName';Type='string'}
-            @{Name='fuelEconomyUnit';Type='string'}
-            @{Name='isMetric';Type='boolean'}
-            @{Name='lastName';Type='string'}
-            @{Name='licenseNumber';Type='string'}
-            @{Name='licenseProvince';Type='string'}
-            @{Name='name';Type='string'}
-            @{Name='phoneNumber';Type='string'}
-            @{Name='timeZoneId';Type='string'}
+            @{Name='comment';Type='string';Mandatory=$false}
+            @{Name='countryCode';Type='string';Mandatory=$false}
+            @{Name='driverGroups';Type='string[]';Mandatory=$false}
+            @{Name='employeeNo';Type='string';Mandatory=$false}
+            @{Name='firstName';Type='string';Mandatory=$false}
+            @{Name='fuelEconomyUnit';Type='string';Mandatory=$false}
+            @{Name='id';Type='string';Mandatory=$false}
+            @{Name='isDriver';Type='boolean';Mandatory=$false}
+            @{Name='isMetric';Type='boolean';Mandatory=$false}
+            @{Name='keys';Type='string[]';Mandatory=$false}
+            @{Name='lastName';Type='string';Mandatory=$false}
+            @{Name='licenseNumber';Type='string';Mandatory=$false}
+            @{Name='licenseProvince';Type='string';Mandatory=$false}
+            @{Name='name';Type='string';Mandatory=$false}
+            @{Name='password';Type='string';Mandatory=$false}
+            @{Name='phoneNumber';Type='string';Mandatory=$false}
+            @{Name='timeZoneId';Type='string';Mandatory=$false}
         )
 
-        it 'is a <Type>' -TestCases $Parameters {
-            param($Name, $Type, $Mandatory)
+        it '<Name> is a <Type>' -TestCases $Parameters {
+            param($Name, $Type)
           
             $Command | Should -HaveParameter $Name -Type $type
         }
 
-        it 'mandatory is <Mandatory>' -TestCases $Parameters {
-            param($Name, $Type, $Mandatory)
+        it '<Name> mandatory is <Mandatory>' -TestCases $Parameters {
+            param($Name, $Mandatory)
           
             if ($Mandatory) { $Command | Should -HaveParameter $Name -Mandatory }
             else { $Command | Should -HaveParameter $Name -Not -Mandatory }
@@ -75,11 +79,15 @@ Describe "New-GeotabUser" -tag 'unit' {
                 employeeNo = 'FL1234'
                 firstName = 'First'
                 fuelEconomyUnit = "MPGUS"
+                id='123456'
+                isDriver = $false
                 isMetric = $false
+                keys = 'ABC','123'
                 lastName = 'Last'
                 licenseNumber = 'abc123def456ghi789'
                 licenseProvince = 'MN'
                 name = 'first.last@domain.tld'
+                password = 'pa55w0rd'
                 phoneNumber = '800-555-1212'
                 timeZoneId = 'America/Chicago'
             }
