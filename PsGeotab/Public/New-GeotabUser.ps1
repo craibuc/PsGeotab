@@ -134,13 +134,13 @@ function New-GeotabUser {
 
     [CmdletBinding()]
     param (
-		[Parameter(Mandatory)]
+		[Parameter(ValueFromPipelineByPropertyName,Mandatory)]
 		[PsCustomObject]$Session,
         # [number]$acceptedEULA,
         # [string]$activeDashboardReports,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [datetime]$activeFrom,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [datetime]$activeTo,
         # [string]$authorityAddress,
         # [string]$authorityName,
@@ -148,12 +148,12 @@ function New-GeotabUser {
         # [string[]]$cannedResponseOptions,
         # [string]$carrierNumber,
         # [boolean]$changePassword,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$comment,
         # [string]$companyAddress,
         # [string[]]$companyGroups,
         # [string]$companyName,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$countryCode,
         # [string]$dateFormat,
         # [string]$defaultGoogleMapStyle,
@@ -162,52 +162,55 @@ function New-GeotabUser {
         # [string]$defaultOpenStreetMapStyle,
         # [string]$defaultPage,
         # [string]$designation,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string[]]$driverGroups,
         # [number]$driveGuideVersion,
         # [string]$electricEnergyEconomyUnit,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$employeeNo,
         # [object]$firstDayOfWeek,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$firstName,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$fuelEconomyUnit,
         # [string]$hosRuleSet,
-        # [Parameter()]
-        # [string]$id,
-        # [boolean]$isDriver,
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [string]$id,
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [boolean]$isDriver,
         # [boolean]$isEULAAccepted,
         # [boolean]$isEmailReportEnabled,
         # [boolean]$isExemptHOSEnabled,
         # [boolean]$isLabsEnabled,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [boolean]$isMetric,
         # [boolean]$isNewsEnabled,
         # [boolean]$isPersonalConveyanceEnabled,
         # [boolean]$isServiceUpdatesEnabled,
         # [boolean]$isYardMoveEnabled,
-        # [string[]]$keys,
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [string[]]$keys,
         # [string]$language,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$lastName,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$licenseNumber,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$licenseProvince,
         # [string[]]$mapViews,
         # [number]$maxPCDistancePerDay,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$name,
-        # [string]$password,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [string]$password,
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$phoneNumber,
         # [string]$phoneNumberExtension,
         # [string[]]$privateUserGroups,
         # [string[]]$reportGroups,
         # [string[]]$securityGroups,
         # [boolean]$showClickOnceWarning,
-        [Parameter()]
+        [Parameter(ValueFromPipelineByPropertyName)]
         [string]$timeZoneId
         # [boolean]$viewDriversOwnDataOnly,
         # [string]$version,
