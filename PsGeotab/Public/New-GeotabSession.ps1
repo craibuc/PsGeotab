@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-Gets a session object.
+Creates a new Geotab session.
 
 .DESCRIPTION
-Gets a session object.
+Creates a new Geotab session.
 
 .PARAMETER Database
 The name of the database.
@@ -19,18 +19,22 @@ System.Management.Automation.PsCustomObject.  Session object.
 
 .EXAMPLE
 PS> $Credential = Get-Credential
-PS> Get-Session -Database 'database' -Credential $Credential
+PS> New-GeotabSession -Database 'database' -Credential $Credential
+
+Create a new Geotab session, prompting for parameters.
 
 .EXAMPLE
 PS> $SecurePassword = ConvertTo-SecureString 'password' -AsPlainText -Force
 PS> $Credential = New-Object System.Management.Automation.PSCredential ('account', $SecurePassword)
-PS> Get-Session -Database 'database' -Credential $Credential
+PS> New-GeotabSession -Database 'database' -Credential $Credential
+
+Create a new Geotab session, supplying parameters in code.
 
 .LINK
 https://geotab.github.io/sdk/software/guides/concepts/#authentication
 
 #>
-function Get-Session
+function New-GeotabSession
 {
 	[CmdletBinding()]
 	param
