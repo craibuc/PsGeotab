@@ -17,3 +17,15 @@
 #
 
 Set-Alias -Name 'Get-Session' -Value 'New-GeotabSession'
+
+
+Register-ArgumentCompleter -CommandName 'Get-GeotabEntity','Set-GeotabEntity' -ParameterName typeName -ScriptBlock {
+    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+
+    (Get-GeotabEntityType) | Where-Object {
+        $_ -like "$wordToComplete*"
+    } | ForEach-Object {
+        $_
+        #   "'$_'"
+    }
+}
