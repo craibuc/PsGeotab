@@ -12,7 +12,7 @@
 RootModule = 'PsGeotab.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.9.0'
+ModuleVersion = '1.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -71,11 +71,9 @@ Description = 'PowerShell module that wraps the Geotab API.'
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = @(
     'Get-DateRange'
-    'Get-Device' # to be removed
     'Get-GeotabEntity','Set-GeotabEntity','New-GeotabEntity'
-    'Get-DeviceType', 'Get-DiagnosticType','Get-GeotabEntityType'
-    'Get-User', 'New-GeotabUser' # to be removed
-    'New-DeviceSearch','New-UserSearch'
+    'Get-GeotabDeviceType', 'Get-GeotabDiagnosticType','Get-GeotabEntityType'
+    'New-GeotabDiagnosticSearch','New-GeotabDeviceSearch','New-GeotabUserSearch'
     'New-GeotabSession'
     'Search-FuelTaxDetail','Search-StatusData'
 )
@@ -87,9 +85,7 @@ CmdletsToExport = @()
 VariablesToExport = '*'
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = @(
-    'Get-Session' # to be removed
-)
+# AliasesToExport = @()
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()
