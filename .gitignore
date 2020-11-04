@@ -2,3 +2,7 @@
 .DS_Store
 
 Settings*
+
+*psakefile.ps1
+
+*/Excluded/*
