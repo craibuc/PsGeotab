@@ -24,17 +24,19 @@ function Get-GeotabDiagnosticType {
     $csv = `
 @"
 Name,Description
-DataDiagnostic,Data Diagnostic
-GoDiagnostic,Go Diagnostic
-GoFault,Go Device Fault
-LegacyFault,Legacy Proprietary Fault
-None,No diagnostic
-ObdFault,OBD (Onboard Diagnostic) Fault
-ObdWwhFault,OBD (Onboard Diagnostic) WWH Fault
-Pid,PID (Parameter Identifier)
-ProprietaryFault,Proprietary Fault
-Sid,SID (Subsystem Identifier)
-SuspectParameter,SPN (Suspect Parameter Number)
+BrpFault,BRP Fault.
+DataDiagnostic,Data Diagnostic.
+GmcccFault,GMCCC Fault.
+GoDiagnostic,Go Diagnostic.
+GoFault,Go Device Fault.
+LegacyFault,Legacy Proprietary Fault.
+None,No diagnostic.
+ObdFault,OBD-II (On-board Diagnostic) Fault.
+ObdWwhFault,OBD-II (On-board Diagnostic) WWH Fault.
+Pid,PID (Parameter Identifier).
+ProprietaryFault,Proprietary Fault.
+Sid,SID (Subsystem Identifier).
+SuspectParameter,SPN (Suspect Parameter Number).
 "@
 
     $csv | ConvertFrom-Csv
