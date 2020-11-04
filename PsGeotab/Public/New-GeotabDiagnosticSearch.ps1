@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Create a DiagnosticSearch object.
+The object used to specify the arguments when searching for Diagnostic(s).
 
 .PARAMETER code
 Search for a Diagnostic by the code number.
@@ -17,8 +17,11 @@ The SourceSearch Id to search for in Diagnostics. Available SourceSearch options
 .PARAMETER id
 Search for an entry based on the specific Id.
 
+.LINK
+https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.Engine.DiagnosticSearch
+
 #>
-function New-DiagnosticSearch {
+function New-GeotabDiagnosticSearch {
 
     [CmdletBinding()]
     param (
@@ -26,7 +29,7 @@ function New-DiagnosticSearch {
         [string]$code,
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ValidateSet('DataDiagnostic','GoDiagnostic','GoFault','LegacyFault','None','ObdFault','ObdWwhFault','Pid','ProprietaryFault','Sid','SuspectParameter')]
+        [ValidateSet('BrpFault','DataDiagnostic','GmcccFault','GoDiagnostic','GoFault','LegacyFault','None','ObdFault','ObdWwhFault','Pid','ProprietaryFault','Sid','SuspectParameter')]
         [string]$diagnosticType,
 
         [Parameter(ValueFromPipelineByPropertyName)]
