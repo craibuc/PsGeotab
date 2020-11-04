@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Voluptate pariatur ipsum exercitation consectetur est consequat deserunt exercitation veniam officia quis ex.
+The object used to specify the arguments when searching for a User/Driver.
 
 .PARAMETER companyGroups	
 Search for Users who are a member this GroupSearch. Available GroupSearch options are: Id  Cannot be used with DriverGroups.
@@ -40,9 +40,12 @@ Search for Users that were active at this date or before.
 
 .PARAMETER id
 Search for an entry based on the specific Id.
+
+.LINK
+https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.UserSearch
 #>
 
-function New-UserSearch {
+function New-GeotabUserSearch {
 
     [CmdletBinding()]
     param (
