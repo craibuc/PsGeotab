@@ -13,13 +13,13 @@ System.Management.Automation.PsCustomObject[].  Array of device types.
 
 .EXAMPLE
 Get all devices.
-PS> Get-DeviceType
+PS> Get-GeotabDeviceType
 
 .LINK
 https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.DeviceType
 
 #>
-function Get-DeviceType {
+function Get-GeotabDeviceType {
 
     $csv = `
 @"
