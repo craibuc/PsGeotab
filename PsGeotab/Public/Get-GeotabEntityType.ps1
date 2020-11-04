@@ -1,4 +1,19 @@
 <#
+.SYNOPSIS
+List of EntityType.
+
+.DESCRIPTION
+List of EntityType.
+
+.INPUTS
+None.
+
+.OUTPUTS
+String[].  Array of entity types.
+
+.EXAMPLE
+Get all devices.
+PS> Get-GeotabEntityType
 
 .LINK
 https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.Entity
