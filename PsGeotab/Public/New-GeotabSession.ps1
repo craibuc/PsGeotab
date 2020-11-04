@@ -83,5 +83,3 @@ function New-GeotabSession
 	elseif ($Content.error) { Write-Error -Message $Content.error.message }
 
 }
-
-$body = @{method = 'Authenticate';params = @{database = $Database;userName = ($Credential.UserName);password = $Password}}
