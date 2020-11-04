@@ -93,7 +93,7 @@ Describe "Get-GeotabEntity" -Tag 'unit' {
             $typeName = 'User'
 
             Mock Invoke-WebRequest {
-                $Fixture = 'Get-User.json'
+                $Fixture = 'Get-User.Response.json'
                 $Content = Get-Content (Join-Path $FixturesDirectory $Fixture) -Raw
 
                 $Response = New-MockObject -Type  Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject
