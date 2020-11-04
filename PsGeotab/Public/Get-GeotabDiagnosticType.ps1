@@ -13,13 +13,13 @@ System.Management.Automation.PsCustomObject[].  Array of diagnostic types.
 
 .EXAMPLE
 Get all devices.
-PS> Get-DiagnosticType
+PS> Get-GeotabDiagnosticType
 
 .LINK
 https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.DiagnosticType
 
 #>
-function Get-DiagnosticType {
+function Get-GeotabDiagnosticType {
 
     $csv = `
 @"
