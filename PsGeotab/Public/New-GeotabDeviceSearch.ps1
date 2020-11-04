@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Create a DeviceSearch object.
+The object used to specify the arguments when searching for a Device.
 
 .PARAMETER comment
 Search for Devices with comments matching this value. Wildcard can be used by prepending/appending "%" to string. Example "%comments%".
@@ -39,7 +39,7 @@ Search for an entry based on the specific Id.
 https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.DeviceSearch
 
 #>
-function New-DeviceSearch {
+function New-GeotabDeviceSearch {
 
     [CmdletBinding()]
     param (
@@ -97,22 +97,8 @@ function New-DeviceSearch {
     
         [pscustomobject]$DeviceSearch
 
-        # $DeviceSearch = [pscustomobject]@{}
-
-        # if ($comment) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'comment' -Value $comment }
-        # if ($deviceType) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'deviceType' -Value $deviceType }
-        # if ($fromDate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'fromDate' -Value $fromDate.ToUniversalTime().ToString("o") }
-        # if ($groupId) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'groupId' -Value $groupId }
-        # if ($keywords) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'keywords' -Value $keywords }
-        # if ($licensePlate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'licensePlate' -Value $licensePlate }
-        # if ($name) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'name' -Value $name }
-        # if ($serialNumber) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'serialNumber' -Value $serialNumber }
-        # if ($vehicleIdentificationNumber) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'vehicleIdentificationNumber' -Value $vehicleIdentificationNumber }
-        # if ($toDate) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'toDate' -Value $toDate.ToUniversalTime().ToString("o") }
-        # if ($id) { $DeviceSearch | Add-Member -MemberType NoteProperty -Name 'id' -Value $id }
-    
-        # $DeviceSearch
     }
+
     end {}
 
 }
