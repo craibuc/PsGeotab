@@ -1,26 +1,29 @@
-# /PsGeotab
-$ProjectDirectory = Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent
+BeforeAll {
 
-# /PsGeotab/PsGeotab/Public
-$PublicPath = Join-Path $ProjectDirectory "/PsGeotab/Public/"
+    # /PsGeotab
+    $ProjectDirectory = Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent
 
-# /PsGeotab/Tests/Fixtures/
-# $FixturesDirectory = Join-Path $ProjectDirectory "/Tests/Fixtures/"
+    # /PsGeotab/PsGeotab/Public
+    $PublicPath = Join-Path $ProjectDirectory "/PsGeotab/Public/"
 
-# New-DiagnosticSearch.ps1
-$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
+    # New-GeotabUserSearch.ps1
+    $sut = (Split-Path -Leaf $PSCommandPath) -replace '\.Tests\.', '.'
 
-# . /PsGeotab/PsGeotab/Public/New-UserSearch.ps1
-. (Join-Path $PublicPath $sut)
+    # . /PsGeotab/PsGeotab/Public/New-GeotabUserSearch.ps1
+    . (Join-Path $PublicPath $sut)
 
-Describe "New-UserSearch" -Tag 'unit' {
+}
+
+Describe "New-GeotabUserSearch" -Tag 'unit' {
 
     Context "Parameter validation" {
-        $Command = Get-Command 'New-UserSearch'
-
+        BeforeAll {
+            $Command = Get-Command 'New-GeotabUserSearch'
+        }
+        
         Context 'companyGroup' {
-            $ParameterName = 'companyGroup'
-
+            BeforeAll { $ParameterName = 'companyGroup' }
+            
             It "is a [String[]]" {
                 $Command | Should -HaveParameter $ParameterName -Type string[]
             }
@@ -30,7 +33,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'driverGroup' {
-            $ParameterName = 'driverGroup'
+            BeforeAll { $ParameterName = 'driverGroup'}
 
             It "is a [String[]]" {
                 $Command | Should -HaveParameter $ParameterName -Type string[]
@@ -41,7 +44,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'firstName' {
-            $ParameterName = 'firstName'
+            BeforeAll { $ParameterName = 'firstName' }
 
             It "is a [String]" {
                 $Command | Should -HaveParameter $ParameterName -Type string
@@ -53,7 +56,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'lastName' {
-            $ParameterName = 'lastName'
+            BeforeAll { $ParameterName = 'lastName' }
 
             It "is a [String]" {
                 $Command | Should -HaveParameter $ParameterName -Type string
@@ -64,7 +67,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'name' {
-            $ParameterName = 'name'
+            BeforeAll { $ParameterName = 'name' }
 
             It "is a [String]" {
                 $Command | Should -HaveParameter $ParameterName -Type string
@@ -75,7 +78,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'fromDate' {
-            $ParameterName = 'fromDate'
+            BeforeAll { $ParameterName = 'fromDate' }
 
             It "is a [datetime]" {
                 $Command | Should -HaveParameter $ParameterName -Type datetime
@@ -86,7 +89,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'toDate' {
-            $ParameterName = 'toDate'
+            BeforeAll { $ParameterName = 'toDate' }
 
             It "is a [datetime]" {
                 $Command | Should -HaveParameter $ParameterName -Type datetime
@@ -97,7 +100,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'isDriver' {
-            $ParameterName = 'isDriver'
+            BeforeAll { $ParameterName = 'isDriver' }
 
             It "is a [boolean]" {
                 $Command | Should -HaveParameter $ParameterName -Type boolean
@@ -108,7 +111,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'keyId' {
-            $ParameterName = 'keyId'
+            BeforeAll { $ParameterName = 'keyId' }
 
             It "is a [string]" {
                 $Command | Should -HaveParameter $ParameterName -Type string
@@ -119,7 +122,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'keywords' {
-            $ParameterName = 'keywords'
+            BeforeAll { $ParameterName = 'keywords' }
 
             It "is a [string]" {
                 $Command | Should -HaveParameter $ParameterName -Type string
@@ -130,7 +133,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'securityGroup' {
-            $ParameterName = 'securityGroup'
+            BeforeAll { $ParameterName = 'securityGroup' }
 
             It "is a [string[]]" {
                 $Command | Should -HaveParameter $ParameterName -Type string[]
@@ -141,7 +144,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'serialNumber' {
-            $ParameterName = 'serialNumber'
+            BeforeAll { $ParameterName = 'serialNumber' }
 
             It "is a [string]" {
                 $Command | Should -HaveParameter $ParameterName -Type string
@@ -152,7 +155,7 @@ Describe "New-UserSearch" -Tag 'unit' {
         }
 
         Context 'id' {
-            $ParameterName = 'id'
+            BeforeAll { $ParameterName = 'id' }
 
             It "is a [string]" {
                 $Command | Should -HaveParameter $ParameterName -Type string
@@ -166,25 +169,32 @@ Describe "New-UserSearch" -Tag 'unit' {
 
     Context "ByCompanyGroup" {
 
-        # arrange
-        $Expected = [pscustomobject]@{
-            companyGroup = 'companyGroup'
-            firstName = 'firstName'
-            lastName = 'lastName'
-            name = 'name'
-            fromDate = '07/22/2020 20:00:00'
-            toDate = '07/22/2020 21:00:00'
-            isDriver = $true
-            keyId = 'keyId'
-            keywords = 'keywords'
-            securityGroup = 'securityGroup'
-            serialNumber = 'serialNumber'
-            id = 'b1234'
+        BeforeAll {
+
+            # arrange
+            $Expected = [pscustomobject]@{
+                companyGroup = 'companyGroup'
+                firstName = 'firstName'
+                lastName = 'lastName'
+                name = 'name'
+                fromDate = '07/22/2020 20:00:00'
+                toDate = '07/22/2020 21:00:00'
+                isDriver = $true
+                keyId = 'keyId'
+                keywords = 'keywords'
+                securityGroup = 'securityGroup'
+                serialNumber = 'serialNumber'
+                id = 'b1234'
+            }
+
+        }
+
+        BeforeEach {
+            # act
+            $Actual = $Expected | New-GeotabUserSearch
         }
 
         it "creates a UserSearch object" {
-            # act
-            $Actual = $Expected | New-UserSearch
 
             # assert
             $Actual.companyGroup | Should -Be $Expected.companyGroup
@@ -205,26 +215,32 @@ Describe "New-UserSearch" -Tag 'unit' {
 
     Context "ByDriverGroup" {
 
-        # arrange
-        $Expected = [pscustomobject]@{
-            driverGroup = 'driverGroup'
-            firstName = 'firstName'
-            lastName = 'lastName'
-            name = 'name'
-            fromDate = '07/22/2020 20:00:00'
-            toDate = '07/22/2020 21:00:00'
-            isDriver = $true
-            keyId = 'keyId'
-            keywords = 'keywords'
-            securityGroup = 'securityGroup'
-            serialNumber = 'serialNumber'
-            id = 'b1234'
+        BeforeAll {
+
+            # arrange
+            $Expected = [pscustomobject]@{
+                driverGroup = 'driverGroup'
+                firstName = 'firstName'
+                lastName = 'lastName'
+                name = 'name'
+                fromDate = '07/22/2020 20:00:00'
+                toDate = '07/22/2020 21:00:00'
+                isDriver = $true
+                keyId = 'keyId'
+                keywords = 'keywords'
+                securityGroup = 'securityGroup'
+                serialNumber = 'serialNumber'
+                id = 'b1234'
+            }
+
+        }
+
+        BeforeEach {
+            # act
+            $Actual = $Expected | New-GeotabUserSearch
         }
 
         it "creates a UserSearch object" {
-            # act
-            $Actual = $Expected | New-UserSearch
-
             # assert
             $Actual.driverGroup | Should -Be $Expected.driverGroup
             $Actual.firstName | Should -Be $Expected.firstName
