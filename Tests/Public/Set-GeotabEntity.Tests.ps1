@@ -61,7 +61,7 @@ Describe "Set-GeotabEntity" -Tag 'unit' {
                 $Command | Should -HaveParameter $ParameterName -Type object
             }
             It "is mandatory" {
-                $Command | Should -HaveParameter $ParameterName -Not -Mandatory
+                $Command | Should -HaveParameter $ParameterName -Mandatory
             }
         }
 
@@ -85,7 +85,7 @@ Describe "Set-GeotabEntity" -Tag 'unit' {
             }
 
             Mock Invoke-WebRequest {
-                $Fixture = 'Get-User.json'
+                $Fixture = 'Set-User.Response.json'
                 $Content = Get-Content (Join-Path $FixturesDirectory $Fixture) -Raw
 
                 $Response = New-MockObject -Type  Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject
@@ -120,7 +120,7 @@ Describe "Set-GeotabEntity" -Tag 'unit' {
             # assert
             Should -Invoke Invoke-WebRequest -ParameterFilter {
                 $ParsedBody = ($Body | ConvertFrom-Json)
-                $ParsedBody.method -eq 'Add' -and
+                $ParsedBody.method -eq 'Set' -and
                 $ParsedBody.params.typeName -eq $typeName -and
                 ( Compare-Object -ReferenceObject ([pscustomobject]$Entity) -DifferenceObject $ParsedBody.params.entity ).SideIndicator.Count -eq 0
             }
