@@ -12,7 +12,7 @@
 RootModule = 'PsGeotab.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.8.0'
+ModuleVersion = '0.9.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -70,12 +70,15 @@ Description = 'PowerShell module that wraps the Geotab API.'
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = @(
-    'Get-DateRange', 'Get-Device', 'Get-DeviceType', 'Get-DiagnosticType'
-    'Get-GeotabEntity','Set-GeotabEntity','Get-GeotabEntityType'
-    'Get-User', 'New-GeotabUser'
-    'New-DeviceSearch','New-UserSearch', 'New-GeotabSession'
+    'Get-DateRange'
+    'Get-Device' # to be removed
+    'Get-GeotabEntity','Set-GeotabEntity','New-GeotabEntity'
+    'Get-DeviceType', 'Get-DiagnosticType','Get-GeotabEntityType'
+    'Get-User', 'New-GeotabUser' # to be removed
+    'New-DeviceSearch','New-UserSearch'
+    'New-GeotabSession'
     'Search-FuelTaxDetail','Search-StatusData'
-    )
+)
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -84,7 +87,9 @@ CmdletsToExport = @()
 VariablesToExport = '*'
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = @('Get-Session')
+AliasesToExport = @(
+    'Get-Session' # to be removed
+)
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()
@@ -103,10 +108,10 @@ PrivateData = @{
         Prerelease = 'beta'
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('geotab')
+        Tags = @('geotab','powershell')
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://github.com/craibuc/PsGeoTab/blob/master/LICENSE'
 
         # A URL to the main website for this project.
         ProjectUri = 'https://github.com/craibuc/PsGeoTab'
