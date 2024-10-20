@@ -36,7 +36,7 @@ Search for a Device by Vehicle Identification Number (VIN). This is the unique n
 Search for an entry based on the specific Id.
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.DeviceSearch
+https://developers.geotab.com/myGeotab/apiReference/objects/DeviceSearch
 
 #>
 function New-GeotabDeviceSearch {

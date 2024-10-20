@@ -10,27 +10,26 @@ Vehicle diagnostic information from the engine computer that can either be measu
 Diagnostics cannot be added, set or removed via the API.
 
 .LINK
-https://my41.geotab.com/Lorenz/#engineMeasurements,dateRange:(endDate:'2020-01-16T05:59:59.000Z',startDate:'2020-01-15T06:00:00.000Z'),devices:all,diagnostics:!(DiagnosticThirdPartyOdometerId,DiagnosticOdometerId),groupBy:diagnostic
+https://developers.geotab.com/myGeotab/apiReference/objects/Diagnostic
 
 #>
 function Get-Diagnostic {
 
-    [CmdletBinding()]
-    param(
+	[CmdletBinding()]
+	param(
 		
 		[Parameter(Mandatory = $true)]
-        [PsCustomObject]$Session,
+		[PsCustomObject]$Session,
 
-		[Parameter(Mandatory = $true, ValueFromPipelineByPropertyName=$true, ValueFromPipeline=$true)]
+		[Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, ValueFromPipeline = $true)]
 		[Alias('id')]
-        [string[]]$DeviceId
+		[string[]]$DeviceId
 
-        # [ValidateSet('DataDiagnostic')]
-        # [string]$DiagnosisType
-    )
+		# [ValidateSet('DataDiagnostic')]
+		# [string]$DiagnosisType
+	)
 
-	Begin
-	{
+	Begin {
 		Write-Debug "$($MyInvocation.MyCommand.Name)::Begin"
 
 		$Uri = "https://$($Session.path)/apiv1"
@@ -40,21 +39,19 @@ function Get-Diagnostic {
 		$Body = @{
 			method = 'Get'
 			params = @{ 
-				typeName = 'Diagnostic'
+				typeName    = 'Diagnostic'
 				credentials = $Session.credentials
-				search = @{
+				search      = @{
 					diagnosticType = ''
 				}
 			}
 		}
 
 	}
-	Process
-	{
+	Process {
 		Write-Debug "$($MyInvocation.MyCommand.Name)::Process"
 	
-		foreach ($Id in $DeviceId) 
-		{
+		foreach ($Id in $DeviceId) {
 			Write-Debug "DeviceId: $Id"
 
 			# remove search key and value
@@ -62,7 +59,7 @@ function Get-Diagnostic {
 
 			# add a search
 			if ($Id) {
-				$Body['params']['search'] = @{id = $Id}
+				$Body['params']['search'] = @{id = $Id }
 			}
 			# elseif ($DiagnosisType) {
 			# 	$Body['params']['search'] = @{diagnosticType = $DiagnosisType}
@@ -81,8 +78,7 @@ function Get-Diagnostic {
 		}
 
 	}
-	End
-	{
+	End {
 		Write-Debug "$($MyInvocation.MyCommand.Name)::End"
 	}
 

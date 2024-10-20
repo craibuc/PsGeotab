@@ -16,7 +16,7 @@ Get all devices.
 PS> Get-GeotabEntityType
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.Entity
+https://developers.geotab.com/myGeotab/apiReference/objects/Entity
 #>
 function Get-GeotabEntityType {
 
@@ -24,6 +24,8 @@ function Get-GeotabEntityType {
     param ()
     
     @(
+        'A1'
+        'AddInData'
         'AnnotationLog'
         'Audit'
         'BinaryPayload'
@@ -34,6 +36,7 @@ function Get-GeotabEntityType {
         'DataDiagnostic'
         'DebugData'
         'Device'
+        'DeviceShare'
         'DeviceStatusInfo'
         'Diagnostic'
         'DistributionList'
@@ -46,9 +49,10 @@ function Get-GeotabEntityType {
         'ExceptionEvent'
         'FailureMode'
         'FaultData'
+        'FillUp'
         'FlashCode'
-        'FuelEvent'
         'FuelTaxDetail'
+        'FuelUsed'
         'FuelTransaction'
         'Go4v3'
         'Go5'
@@ -56,6 +60,7 @@ function Get-GeotabEntityType {
         'Go7'
         'Go8'
         'Go9'
+        'Go9B'
         'GoCurve'
         'GoCurveAuxiliary'
         'GoDevice'
@@ -63,6 +68,7 @@ function Get-GeotabEntityType {
         'GroupSecurity'
         'IoxAddOn'
         'LogRecord'
+        'MediaFile'
         'ParameterGroup'
         'Recipient'
         'RequestLocation'
@@ -73,16 +79,18 @@ function Get-GeotabEntityType {
         'ShipmentLog'
         'Source'
         'StatusData'
+        'TachographDataFile'
         'TextMessage'
         'Trailer'
         'TrailerAttachment'
         'Trip'
         'UnitOfMeasure'
         'User'
+        'WifiHotspot'
         'WorkHoliday'
         'WorkTime'
         'WorkTimeDetail'
-        'Zone'   
+        'Zone'
     )
 
 }

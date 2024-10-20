@@ -1,10 +1,9 @@
 <#
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.User
+https://developers.geotab.com/myGeotab/apiReference/objects/User
 #>
-class User
-{
+class User {
     [bool]$acceptedEULA
     [string]$activeDashboardReports
     [datetime]$activeFrom
@@ -21,26 +20,26 @@ class User
     [string]$companyName
     [string]$countryCode
     [string]$dateFormat = 'MM/dd/yy HH:mm:ss'
-    [ValidateSet(,'Hybrid','Roadmap','Satellite','Terrain')]
+    [ValidateSet(, 'Hybrid', 'Roadmap', 'Satellite', 'Terrain')]
     [string]$defaultGoogleMapStyle = 'Roadmap'
     [ValidateSet()]
     [object]$defaultHereMapStyle = 'Roadmap'
     [ValidateSet('GoogleMaps''HereMap''MapBox')]
     [string]$defaultMapEngine = 'MapBox'
-    [ValidateSet('Cycle','MapBox','None','Satellite','Transport')]
+    [ValidateSet('Cycle', 'MapBox', 'None', 'Satellite', 'Transport')]
     [string]$defaultOpenStreetMapStyle = 'MapBox'
     [string]$defaultPage
-    [ValidateRange(0,50)]
+    [ValidateRange(0, 50)]
     [string]$designation
     [int]$driveGuideVersion
-    [ValidateSet('KiloWhPer100Km','KiloWhPer100Miles','KmPerKiloWh','KmPerLitersE','LitersEPer100Km','MPGEImperial','MPGEUS','MilePerKiloWh','WhPerKm','WhPerMile')]
+    [ValidateSet('KiloWhPer100Km', 'KiloWhPer100Miles', 'KmPerKiloWh', 'KmPerLitersE', 'LitersEPer100Km', 'MPGEImperial', 'MPGEUS', 'MilePerKiloWh', 'WhPerKm', 'WhPerMile')]
     [string]$electricEnergyEconomyUnit = 'LitersEPer100Km'
-    [ValidateRange(0,50)]
+    [ValidateRange(0, 50)]
     [string]$employeeNo
     [object]$firstDayOfWeek = 'Sunday'
-    [ValidateRange(0,255)]
+    [ValidateRange(0, 255)]
     [string]$firstName
-    [ValidateSet('KmPerLiter','LitersPer100Km','MPGImperial','MPGUS')]
+    [ValidateSet('KmPerLiter', 'LitersPer100Km', 'MPGImperial', 'MPGUS')]
     [string]$fuelEconomyUnit = 'LitersPer100Km'
     [string]$hosRuleSet
     [string]$id
@@ -55,17 +54,17 @@ class User
     [boolean]$isServiceUpdatesEnabled
     [boolean]$isYardMoveEnabled
     [string]$language = 'en'
-    [ValidateRange(0,255)]
+    [ValidateRange(0, 255)]
     [string]$lastName
-    [ValidateSet('highlightGroups','name','viewport')]
+    [ValidateSet('highlightGroups', 'name', 'viewport')]
     [string[]]$mapViews
     [int]$maxPCDistancePerDay
-    [ValidateRange(0,255)]
+    [ValidateRange(0, 255)]
     [string]$name
     [string]$password
-    [ValidateRange(0,20)]
+    [ValidateRange(0, 20)]
     [string]$phoneNumber
-    [ValidateRange(0,5)]
+    [ValidateRange(0, 5)]
     [string]$phoneNumberExtension
     [string[]]$privateUserGroups
     [string[]]$reportGroups
@@ -73,7 +72,7 @@ class User
     [boolean]$showClickOnceWarning
     [string]$timeZoneId = 'America/New_York'
     [int]$wifiEULA
-    [ValidateSet('All','Default','None')]
+    [ValidateSet('All', 'Default', 'None')]
     [string]$zoneDisplayMode = 'Default'
     [string]$version
 }
@@ -81,10 +80,9 @@ class User
 <#
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.Driver
+https://developers.geotab.com/myGeotab/apiReference/objects/Driver
 #>
-class Driver : User
-{
+class Driver : User {
     [string[]]$driverGroups
     [string[]]$keys
     [string]$licenseNumber

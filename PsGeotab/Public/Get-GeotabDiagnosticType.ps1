@@ -16,13 +16,13 @@ Get all devices.
 PS> Get-GeotabDiagnosticType
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.DiagnosticType
+https://developers.geotab.com/myGeotab/apiReference/objects/DiagnosticType
 
 #>
 function Get-GeotabDiagnosticType {
 
     $csv = `
-@"
+        @"
 Name,Description
 BrpFault,BRP Fault.
 DataDiagnostic,Data Diagnostic.

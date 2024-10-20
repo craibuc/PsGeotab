@@ -31,11 +31,10 @@ PS> New-GeotabSession -Database 'database' -Credential $Credential
 Create a new Geotab session, supplying parameters in code.
 
 .LINK
-https://geotab.github.io/sdk/software/guides/concepts/#authentication
+https://developers.geotab.com/MyGeotab/software/guides/concepts/#authentication
 
 #>
-function New-GeotabSession
-{
+function New-GeotabSession {
 	[CmdletBinding()]
 	param
 	(
@@ -56,7 +55,7 @@ function New-GeotabSession
 	Write-Debug "Database: $Database"
 	Write-Debug "UserName: $($Credential.UserName)"
 
-	$Headers = @{'Cache-Control' = 'no-cache'}
+	$Headers = @{'Cache-Control' = 'no-cache' }
 
 	# payload as JSON
 	$body = @{
@@ -77,7 +76,12 @@ function New-GeotabSession
 	$Content = ( Invoke-WebRequest -Uri $Uri -Method Post -Body $Body -ContentType "application/json" -Headers $Headers ).Content | ConvertFrom-Json
 
 	# returns PsCustomObject representation of credentials
-	if ( $Content.result ) { [PsCustomObject]$Content.result }
+	if ( $Content.result ) { 
+		if ($Content.result.Path -eq 'ThisServer') {
+			$Content.result.Path = 'my.geotab.com'
+		}
+		[PsCustomObject]$Content.result 
+	}
 
 	# otherwise raise an exception
 	elseif ($Content.error) { Write-Error -Message $Content.error.message }

@@ -25,17 +25,17 @@ Get DiagnosticOdometerAdjustmentId diagnostics for device `b57` that occurred to
 When searching for status data including DeviceSearch and DiagnosticSearch the system will return all records that match the search criteria and interpolate the value at the provided from/to dates when there is no record that corresponds to the date. Interpolated records are dynamically created when the request is made and can be identified as not having the ID property populated. Records with an ID are stored in the database.
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.Engine.StatusDataSearch
+https://developers.geotab.com/myGeotab/apiReference/objects/Engine.StatusDataSearch
 
 #>
 function Search-StatusData {
 
     [CmdletBinding()]
     param(
-		[Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [PsCustomObject]$Session,
 
-        [Parameter(ValueFromPipelineByPropertyName,ValueFromPipeline)]
+        [Parameter(ValueFromPipelineByPropertyName, ValueFromPipeline)]
         [Alias('id')]
         [string]$DeviceId,
     
@@ -47,11 +47,10 @@ function Search-StatusData {
         [Alias('activeTo')]
         [datetime]$ToDate = [DateTime]::Today.AddDays(1).AddSeconds(-1),
 
-        [string]$DiagnosticId='DiagnosticOdometerAdjustmentId'
+        [string]$DiagnosticId = 'DiagnosticOdometerAdjustmentId'
     )
 
-    Begin
-    {
+    Begin {
         Write-Debug "$($MyInvocation.MyCommand.Name)::Begin"
 
         $Uri = "https://$($Session.path)/apiv1"
@@ -59,40 +58,39 @@ function Search-StatusData {
 
         Write-Debug "DiagnosticId: $DiagnosticId"
     }
-    Process
-    {
+    Process {
         Write-Debug "$($MyInvocation.MyCommand.Name)::Process"
 
         # foreach ($Id in $DeviceId) 
         # {
-            Write-Debug "DeviceId: $DeviceId"
-            Write-Debug "FromDate: $FromDate"
-            Write-Debug "ToDate: $ToDate"
+        Write-Debug "DeviceId: $DeviceId"
+        Write-Debug "FromDate: $FromDate"
+        Write-Debug "ToDate: $ToDate"
     
-            # payload as JSON
-            $Body = @{
-                method = 'Get'
-                params = @{ 
-                    typeName = 'StatusData'
-                    credentials = $Session.credentials
-                    search = @{
-                        deviceSearch = @{ id = $DeviceId }
-                        diagnosticSearch = @{ id = $DiagnosticId }
-                        fromDate = $FromDate.ToUniversalTime().ToString("o")
-                        toDate = $toDate.ToUniversalTime().ToString("o")
-                    }
+        # payload as JSON
+        $Body = @{
+            method = 'Get'
+            params = @{ 
+                typeName    = 'StatusData'
+                credentials = $Session.credentials
+                search      = @{
+                    deviceSearch     = @{ id = $DeviceId }
+                    diagnosticSearch = @{ id = $DiagnosticId }
+                    fromDate         = $FromDate.ToUniversalTime().ToString("o")
+                    toDate           = $toDate.ToUniversalTime().ToString("o")
                 }
-            } 
+            }
+        } 
 
-            # Write-Debug ($Body | ConvertTo-Json -Depth 3)
+        # Write-Debug ($Body | ConvertTo-Json -Depth 3)
 
-            # POST
-            $Content = ( Invoke-WebRequest -Uri $uri -Method Post -Body ($Body | ConvertTo-Json -Depth 3 ) -ContentType "application/json" ).Content | ConvertFrom-Json
+        # POST
+        $Content = ( Invoke-WebRequest -Uri $uri -Method Post -Body ($Body | ConvertTo-Json -Depth 3 ) -ContentType "application/json" ).Content | ConvertFrom-Json
 
-            # returns PsCustomObject representation of object
-            if ( $Content.result ) { $Content.result }
-            # otherwise raise an exception
-            elseif ($Content.error) { Write-Error -Message $Content.error.message }
+        # returns PsCustomObject representation of object
+        if ( $Content.result ) { $Content.result }
+        # otherwise raise an exception
+        elseif ($Content.error) { Write-Error -Message $Content.error.message }
                     
         # } # /foreach
 
