@@ -85,7 +85,7 @@ Describe "Get-GeotabEntity" -Tag 'unit' {
         BeforeAll {
             # arrange
             $Session = [PsCustomObject]@{
-                path = 'servername'
+                path        = 'servername'
                 credentials = [PsCustomObject]@{
                     sessionId = 123456
                 }

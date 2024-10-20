@@ -33,7 +33,7 @@ Describe "Search-FuelTaxDetail" {
     } # /context
 
     $Session = [PsCustomObject]@{
-        path = 'servername'
+        path        = 'servername'
         credentials = [PsCustomObject]@{
             sessionId = 123456
         }
@@ -42,7 +42,7 @@ Describe "Search-FuelTaxDetail" {
     Mock Invoke-WebRequest {
 
         $Content = 
-@"
+        @"
 {
     "result": [
         {
@@ -102,13 +102,13 @@ Describe "Search-FuelTaxDetail" {
 
         it "creates correct request" {
             # arrange
-            $DeviceSearch = New-DeviceSearch -Id 'b65'
+            $DeviceSearch = New-GeotabDeviceSearch -Id 'b65'
 
             # act 
             $DeviceSearch | Search-FuelTaxDetail -Session $Session
 
             # assert
-            Assert-MockCalled Invoke-WebRequest -ParameterFilter {
+            Should -Invoke Invoke-WebRequest -ParameterFilter {
                 $X = $Body | ConvertFrom-Json
 
                 $Uri -eq "https://$($Session.path)/apiv1" -and
@@ -131,7 +131,7 @@ Describe "Search-FuelTaxDetail" {
             Search-FuelTaxDetail -Session $Session -FromDate $FromDate
     
             # assert
-            Assert-MockCalled Invoke-WebRequest -ParameterFilter {
+            Should -Invoke Invoke-WebRequest -ParameterFilter {
                 $X = $Body | ConvertFrom-Json
 
                 $Uri -eq "https://$($Session.path)/apiv1" -and
@@ -154,7 +154,7 @@ Describe "Search-FuelTaxDetail" {
             Search-FuelTaxDetail -Session $Session -ToDate $ToDate
    
             # assert
-            Assert-MockCalled Invoke-WebRequest -ParameterFilter {
+            Should -Invoke Invoke-WebRequest -ParameterFilter {
                 $X = $Body | ConvertFrom-Json
 
                 $Uri -eq "https://$($Session.path)/apiv1" -and
@@ -174,7 +174,7 @@ Describe "Search-FuelTaxDetail" {
             Search-FuelTaxDetail -Session $Session -IncludeBoundaries
 
             # assert
-            Assert-MockCalled Invoke-WebRequest -ParameterFilter {
+            Should -Invoke Invoke-WebRequest -ParameterFilter {
                 $X = $Body | ConvertFrom-Json
 
                 $Uri -eq "https://$($Session.path)/apiv1" -and
@@ -193,7 +193,7 @@ Describe "Search-FuelTaxDetail" {
             Search-FuelTaxDetail -Session $Session -IncludeHourlyData
 
             # assert
-            Assert-MockCalled Invoke-WebRequest -ParameterFilter {
+            Should -Invoke Invoke-WebRequest -ParameterFilter {
                 $X = $Body | ConvertFrom-Json
 
                 $Uri -eq "https://$($Session.path)/apiv1" -and
@@ -215,7 +215,7 @@ Describe "Search-FuelTaxDetail" {
             Search-FuelTaxDetail -Session $Session -Id $Id
 
             # assert
-            Assert-MockCalled Invoke-WebRequest -ParameterFilter {
+            Should -Invoke Invoke-WebRequest -ParameterFilter {
                 $X = $Body | ConvertFrom-Json
 
                 $Uri -eq "https://$($Session.path)/apiv1" -and
