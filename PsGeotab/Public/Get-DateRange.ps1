@@ -60,7 +60,7 @@ function Get-DateRange {
     [CmdletBinding()]
     param
     (
-        [Parameter(Mandatory,ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [Alias('activeFrom')]
         [datetime]$From,
 
@@ -87,43 +87,40 @@ function Get-DateRange {
         Write-Debug "StartOfMonth: $StartOfMonth"
         Write-Debug "EndOfMonth: $EndOfMonth"
     }
-    Process
-    {
+    Process {
         Write-Debug "$($MyInvocation.MyCommand.Name)::Process"
 
-        if ($ExcludeFuture) 
-        {
+        if ($ExcludeFuture) {
             $Today = (Get-Date)
             $To = if ( $Today.Date -lt $To.Date ) { $Today } else { $To }
         }
     
         $Save = $From
 
-        Write-Debug "$($From.Date) - $($To.Date)"
+        Write-Debug "From: $($From.Date) - To: $($To.Date)"
 
-        while ( $From.Date -le $To.Date ) 
-        {
+        while ( $From.Date -le $To.Date ) {
             if ($FirstDate -and $From.Date -eq $Save.Date) { $From.Date + $Time }
             elseif ($LastDate -and $From.Date -eq $To.Date) { $From.Date + $Time }
-            else
-            {
+            else {
+                Write-Debug "From:$($From), EOM: $($From.AddMonths(1).AddDays(-$From.Day).Date), $( $EndOfMonth -and (-not ($From.Month -eq 1) -or -not ($From.Month -eq 7)) -and ($From.Date -eq $From.AddMonths(1).AddDays(-$From.Day).Date))"
                 # -StartOfMonth and mm/1/yy
                 if ( $StartOfMonth -and $From.Day -eq 1) { $From.Date + $Time }
-                
+        
                 # -EndOfMonth and mm/[28|29|30|31]/yy
-                if ( $EndOfMonth -and $From.Date -eq $From.Date.AddDays(-$From.Day).AddMonths(1) ) { $From.Date + $Time }
-
+                if ( $EndOfMonth -and (!($From.Month -eq 1)) -and ($From.Date -eq $From.AddMonths(1).AddDays(-$From.Day).Date)) { $From.Date + $Time }
+                if ($EndOfMonth -and $From.Day -eq 31 -and !($From.Month -eq 7)) { $From.Date + $Time }
+        
                 # -StartOfMonth and -EndOfMonth not supplied
                 elseif ( !$StartOfMonth -and !$EndOfMonth ) { $From.Date + $Time }
             }
-
             # increment
             $From = $From.AddDays(1)
+        
         }
     
     }
-    End 
-    { 
+    End { 
         Write-Debug "$($MyInvocation.MyCommand.Name)::End"
     }
 

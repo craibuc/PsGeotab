@@ -42,7 +42,7 @@ Search for Users that were active at this date or before.
 Search for an entry based on the specific Id.
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.UserSearch
+https://developers.geotab.com/myGeotab/apiReference/objects/UserSearch
 #>
 
 function New-GeotabUserSearch {

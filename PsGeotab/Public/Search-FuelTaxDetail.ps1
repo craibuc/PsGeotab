@@ -20,7 +20,7 @@ A value indicating whether to include hourly data.
 Search for an entry based on the specific Id.  NOT the deviceId.
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.FuelTaxDetailSearch
+https://developers.geotab.com/myGeotab/apiReference/objects/FuelTaxDetailSearch
 
 #>
 function Search-FuelTaxDetail {
@@ -56,9 +56,9 @@ function Search-FuelTaxDetail {
     $Body = @{
         method = 'Get'
         params = @{ 
-            typeName = 'FuelTaxDetail'
+            typeName    = 'FuelTaxDetail'
             credentials = $Session.credentials
-            search = @{}
+            search      = @{}
         }
     }
 
