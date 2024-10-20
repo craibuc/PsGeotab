@@ -13,14 +13,21 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 # . /PsGeotab/PsGeotab/Public/Get-DataRange.ps1
 . (Join-Path $PublicPath $sut)
 
+BeforeDiscovery {
+    
+    [datetime]$From = '2024-01-01'
+    [datetime]$To = '2024-01-31'
+}
+
 Describe "Get-DateRange" {
 
-    [datetime]$From = '01/01/2019'
-    [datetime]$To = '01/31/2019'
-
-    Context "`$From and `$To supplied" {
-
-        It "generates dates between `$From and `$To" {
+    Context "<From> and <To> supplied" {
+        BeforeEach {
+            [datetime]$From = '2024-01-01'
+            [datetime]$To = '2024-01-31'
+        }
+        
+        It "generates dates between <From> and <To>" {
 
             # act
             $Actual = Get-DateRange $From $To
@@ -33,13 +40,15 @@ Describe "Get-DateRange" {
     
     }
 
-    Context "`$From date supplied" {
+    Context "<From> date supplied" {
 
-        # arrange
-        [datetime]$From = '01/01/2020'
-        [datetime]$To = (Get-Date).Date
+        BeforeEach {
+            # arrange
+            [datetime]$From = '2024-01-01'
+            [datetime]$To = (Get-Date).Date
+        }
 
-        It "generates dates between `$From and Today" {
+        It "generates dates between <From> and Today" {
 
             # act
             $Actual = Get-DateRange $From
@@ -53,14 +62,16 @@ Describe "Get-DateRange" {
     
     }
 
-    Context "`$From and `$To supplied via pipeline" {
+    Context "<From> and <To> supplied via pipeline" {
 
-        $Hash = [PsCustomObject]@{
-            activeFrom=[datetime]'01/01/2020'
-            activeTo=[datetime]'01/05/2020'
+        BeforeEach {
+            $Hash = [PsCustomObject]@{
+                activeFrom = [datetime]'2024-01-01'
+                activeTo   = [datetime]'2024-01-05'
+            }
         }
 
-        It "generates dates between `$From and `$To" {
+        It "generates dates between <From> and <To>" {
 
             # act
             $Actual = $Hash | Get-DateRange
@@ -74,12 +85,13 @@ Describe "Get-DateRange" {
     } # /context
 
     Context "-ExcludeFuture supplied" {
-
-        [datetime]$From = '01/01/2019'
-        [datetime]$To = (Get-Date).AddDays(10)
+        BeforeEach {
+            [datetime]$From = '2024-01-01'
+            [datetime]$To = (Get-Date).AddDays(10)
         
-        $Expected = (Get-Date).Date
-
+        
+            $Expected = (Get-Date).Date
+        }
         It "Generates dates that are <= Today" {
 
             # act
@@ -94,10 +106,10 @@ Describe "Get-DateRange" {
     } # /context
 
     Context "-StartOfMonth supplied" {
-
-        [datetime]$From = '01/01/2019'
-        [datetime]$To = '02/15/2019'
-    
+        BeforeEach {
+            [datetime]$From = '2024-01-01'
+            [datetime]$To = '2024-02-15'
+        }
         It "Generates dates that are the first of the month" {
 
             # act
@@ -105,17 +117,17 @@ Describe "Get-DateRange" {
 
             # assert
             $Actual | Select-Object -First 1 | Should -Be $From
-            $Actual | Select-Object -Last 1 | Should -Be ([datetime]'02/01/2019')
+            $Actual | Select-Object -Last 1 | Should -Be ([datetime]'2024-02-01')
             $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 2
 
         }
     } # /context
 
-    Context "`$StartOfMonth and `$ExcludeFuture supplied" {
-
-        [datetime]$From = (get-date -day 1).addmonths(-1).date # first of the month, one month ago
-        [datetime]$To = (Get-Date).AddMonths(2)
-        
+    Context "<Star>tOfMonth and <Excl>udeFuture supplied" {
+        BeforeEach {
+            [datetime]$From = (get-date -day 1).addmonths(-1).date # first of the month, one month ago
+            [datetime]$To = (Get-Date).AddMonths(2)
+        }
         It "Generates dates that are <= Today and are first of the month" {
 
             # act
@@ -130,64 +142,64 @@ Describe "Get-DateRange" {
     } # /context
 
     Context "-EndOfMonth supplied" {
-
-        [datetime]$From = '01/01/2019'
-        [datetime]$To = '03/15/2019'
-    
-        It "Generates dates that are the last of the month" {
+        BeforeEach {
+            [datetime]$From = '2024-03-01'
+            [datetime]$To = '2024-05-15'
+        }
+        It "Generates dates that are the last of the month of <From>" {
 
             # act
             $Actual = Get-DateRange -From $From -To $To -EndOfMonth
 
             # assert
-            $Actual | Select-Object -First 1 | Should -Be ([datetime]'01/31/2019')
-            $Actual | Select-Object -Last 1 | Should -Be ([datetime]'02/28/2019')
+            $Actual | Select-Object -First 1 | Should -Be ([datetime]'2024-03-31')
+            $Actual | Select-Object -Last 1 | Should -Be ([datetime]'2024-04-30')
             $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 2
 
         }
     } # /context
 
-    Context "`$StartOfMonth and `$EndOfMonth supplied" {
-
-        [datetime]$From = '01/01/2019'
-        [datetime]$To = '03/15/2019'
-    
+    Context "<Star>tOfMonth and <EndO>fMonth supplied" {
+        BeforeEach {
+            [datetime]$From = '2024-01-01'
+            [datetime]$To = '2024-03-15'
+        }
         It "Generates dates that are the first and last of the month" {
 
             # act
             $Actual = Get-DateRange -From $From -To $To -StartOfMonth -EndOfMonth
 
             # assert
-            $Actual | Select-Object -First 1 | Should -Be ([datetime]'01/01/2019')
-            $Actual | Select-Object -Last 1 | Should -Be ([datetime]'03/01/2019')
+            $Actual | Select-Object -First 1 | Should -Be ([datetime]'2024-01-01')
+            $Actual | Select-Object -Last 1 | Should -Be ([datetime]'2024-03-01')
             $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 5
 
         }
     } # /context
 
-    Context "`$StartOfMonth and `$EndOfMonth and `$ExcludeFuture supplied" {
-
-        [datetime]$From = '01/01/2019'
-        [datetime]$To = '03/15/2019'
-    
+    Context "<Star>tOfMonth and <EndO>fMonth and <Excl>udeFuture supplied" {
+        BeforeEach {
+            [datetime]$From = '2024-01-01'
+            [datetime]$To = '2024-03-15'
+        }
         It "Generates dates that are the first and last of the month and are <= Today" {
 
             # act
             $Actual = Get-DateRange -From $From -To $To -StartOfMonth -EndOfMonth -ExcludeFuture
 
             # assert
-            $Actual | Select-Object -First 1 | Should -Be ([datetime]'01/01/2019')
-            $Actual | Select-Object -Last 1 | Should -Be ([datetime]'03/01/2019')
+            $Actual | Select-Object -First 1 | Should -Be ([datetime]'2024-01-01')
+            $Actual | Select-Object -Last 1 | Should -Be ([datetime]'2024-03-01')
             $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 5
 
         }
     } # /context
 
     Context "-FirstDate supplied" {
-
-        [datetime]$From = '01/03/2019'
-        [datetime]$To = '02/15/2019'
-
+        BeforeEach {
+            [datetime]$From = '2024-01-03'
+            [datetime]$To = '2024-02-15'
+        }
         Context "-StartOfMonth supplied" {
     
             It "Includes the first record and the first day of the month" {
@@ -197,7 +209,7 @@ Describe "Get-DateRange" {
     
                 # assert
                 $Actual | Select-Object -First 1 | Should -Be $From
-                $Actual | Select-Object -Last 1 | Should -Be ([datetime]'02/01/2019')
+                $Actual | Select-Object -Last 1 | Should -Be ([datetime]'2024-02-01')
                 $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 2
 
             }
@@ -213,7 +225,7 @@ Describe "Get-DateRange" {
     
                 # assert
                 $Actual | Select-Object -First 1 | Should -Be $From
-                $Actual | Select-Object -Last 1 | Should -Be ([datetime]'01/31/2019')
+                $Actual | Select-Object -Last 1 | Should -Be ([datetime]'2024-01-31')
                 $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 2
     
             }
@@ -225,18 +237,18 @@ Describe "Get-DateRange" {
     Context "-LastDate supplied" {
     
         Context "-StartOfMonth supplied" {
-
-            [datetime]$From = '01/15/2019'
-            [datetime]$To = '02/15/2019'
-    
+            BeforeEach {
+                [datetime]$From = '2024-01-15'
+                [datetime]$To = '2024-02-15'
+            }
             It "Includes the last record and the first day of the month" {
 
                 # act
                 $Actual = Get-DateRange -From $From -To $To -LastDate -StartOfMonth
     
                 # assert
-                $Actual | Select-Object -First 1 | Should -Be ([datetime]'02/01/2019')
-                $Actual | Select-Object -Last 1 | Should -Be ([datetime]'02/15/2019')
+                $Actual | Select-Object -First 1 | Should -Be ([datetime]'2024-02-01')
+                $Actual | Select-Object -Last 1 | Should -Be ([datetime]'2024-02-15')
                 $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 2
 
             }
@@ -244,18 +256,18 @@ Describe "Get-DateRange" {
         }
 
         Context "-EndOfMonth supplied" {
-
-            [datetime]$From = '01/15/2019'
-            [datetime]$To = '02/15/2019'
-
+            BeforeEach {
+                [datetime]$From = '2024-01-15'
+                [datetime]$To = '2024-02-15'
+            }
             It "Includes the last record and the last day of the month" {
 
                 # act
                 $Actual = Get-DateRange -From $From -To $To -LastDate -EndOfMonth
     
                 # assert
-                $Actual | Select-Object -First 1 | Should -Be ([datetime]'01/31/2019')
-                $Actual | Select-Object -Last 1 | Should -Be ([datetime]'02/15/2019')
+                $Actual | Select-Object -First 1 | Should -Be ([datetime]'2024-01-31')
+                $Actual | Select-Object -Last 1 | Should -Be ([datetime]'2024-02-15')
                 $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 2
     
             }
@@ -265,18 +277,18 @@ Describe "Get-DateRange" {
     } # /context
 
     Context "-Time 23:59:59" {
-
-        $Time = '23:59:59'
-        [datetime]$From = '01/01/2019'
-        [datetime]$To = '01/01/2019'
-
+        BeforeEach {
+            $Time = '23:59:59'
+            [datetime]$From = '2024-01-01'
+            [datetime]$To = '2024-01-01'
+        }
         It "Adds $Time to the date" {
 
             # act
             $Actual = Get-DateRange -From $From -To $To -Time $Time
 
             # assert
-            $Actual | Select-Object -First 1 | Should -Be ([datetime]"01/01/2019 $Time")
+            $Actual | Select-Object -First 1 | Should -Be ([datetime]"2024-01-01 $Time")
             $Actual | Measure-Object | Select-Object -ExpandProperty Count | Should -Be 1
 
         }

@@ -21,13 +21,13 @@ Describe "New-GeotabDeviceSearch" -Tag 'unit' {
         $Expected = [pscustomobject]@{
             comments = '%comments%'
             deviceType = 'device type'
-            fromDate = '03/01/2020 12:00:00'
+            fromDate = '2024-03-01 12:00:00'
             groups = '1,2,3'
             keywords = 'keywords'
             licensePlate = '%ABC123%'
             name = '%name%'
             serialNumber = 'ABCEDFGHIJKLMNOPQRSTUVWXYZ'
-            toDate = '03/31/2020 23:59:59'
+            toDate = '2024-03-31 23:59:59'
             vehicleIdentificationNumber = '0123456789'
             id = 'b1234'
         }

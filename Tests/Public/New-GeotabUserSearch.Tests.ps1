@@ -33,7 +33,7 @@ Describe "New-GeotabUserSearch" -Tag 'unit' {
         }
 
         Context 'driverGroup' {
-            BeforeAll { $ParameterName = 'driverGroup'}
+            BeforeAll { $ParameterName = 'driverGroup' }
 
             It "is a [String[]]" {
                 $Command | Should -HaveParameter $ParameterName -Type string[]
@@ -173,18 +173,18 @@ Describe "New-GeotabUserSearch" -Tag 'unit' {
 
             # arrange
             $Expected = [pscustomobject]@{
-                companyGroup = 'companyGroup'
-                firstName = 'firstName'
-                lastName = 'lastName'
-                name = 'name'
-                fromDate = '07/22/2020 20:00:00'
-                toDate = '07/22/2020 21:00:00'
-                isDriver = $true
-                keyId = 'keyId'
-                keywords = 'keywords'
+                companyGroup  = 'companyGroup'
+                firstName     = 'firstName'
+                lastName      = 'lastName'
+                name          = 'name'
+                fromDate      = '2024-07-22 20:00:00'
+                toDate        = '2024-07-22 21:00:00'
+                isDriver      = $true
+                keyId         = 'keyId'
+                keywords      = 'keywords'
                 securityGroup = 'securityGroup'
-                serialNumber = 'serialNumber'
-                id = 'b1234'
+                serialNumber  = 'serialNumber'
+                id            = 'b1234'
             }
 
         }
@@ -219,18 +219,18 @@ Describe "New-GeotabUserSearch" -Tag 'unit' {
 
             # arrange
             $Expected = [pscustomobject]@{
-                driverGroup = 'driverGroup'
-                firstName = 'firstName'
-                lastName = 'lastName'
-                name = 'name'
-                fromDate = '07/22/2020 20:00:00'
-                toDate = '07/22/2020 21:00:00'
-                isDriver = $true
-                keyId = 'keyId'
-                keywords = 'keywords'
+                driverGroup   = 'driverGroup'
+                firstName     = 'firstName'
+                lastName      = 'lastName'
+                name          = 'name'
+                fromDate      = '2024-07-22 20:00:00'
+                toDate        = '2024-07-22 21:00:00'
+                isDriver      = $true
+                keyId         = 'keyId'
+                keywords      = 'keywords'
                 securityGroup = 'securityGroup'
-                serialNumber = 'serialNumber'
-                id = 'b1234'
+                serialNumber  = 'serialNumber'
+                id            = 'b1234'
             }
 
         }
