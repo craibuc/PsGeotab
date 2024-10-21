@@ -47,11 +47,11 @@ PS> Get-ChildItem -Path . -Recurse | Unblock-File
 # create a session using the credentials and database provided by Geotab
 PS> $Session = Get-Session -Database 'Database' -Credential (Get-Credential)
 ```
-### Get-Device
+### Get-GeotabEntity - Device
 
 ```powershell
 # search for a device by the `Name` property
-PS> Get-Device -Session $Session -name '80012%' | 
+PS> Get-GeotabEntity -Session $Session -typeName 'Device' -search @{name = '80012%' } | 
 
     # choosing specific properties
     Select-Object vehicleIdentificationNumber, licensePlate, name, vehicleIdentificationNumber, id, serialNumber, deviceType, activeFrom, activeTo | 
@@ -65,13 +65,13 @@ PS> Get-Device -Session $Session -name '80012%' |
     # save it to a file on the current user's desktop
     Out-File "~/Desktop/com.geotab.devices.csv"
 ```
-### Get-Device
+### Get-GeotabEntity - Device + StatusData
 
 #### Get the most-recent odometer readings that occured today.
 
 ```powershell
 # get all devices
-PS> Get-Device -Session $Session |
+PS> Get-GeotabEntity -Session $Session -typeName 'Device' |
 
     # search diagnostics using defalt parameters
     Search-StatusData -Session $Session | 
@@ -107,7 +107,7 @@ PS> Get-Device -Session $Session |
 $Session = Get-Session ...
 
 # get a list of devices
-Get-Device -Session $Session | 
+Get-GeotabEntity -Session $Session -typeName 'Device' | 
 
 # select the device's `id` property
 Select-Object id |
@@ -133,7 +133,7 @@ Format-Table
 # rather than this
 PS> $Session = Get-Session -Database 'Database' -Credential (Get-Credential)
 
-PS> Get-Device -Session $Session | Search-StatusData -Session $Session | ...
+PS> Get-GeotabEntity -Session $Session -typeName 'Device' | Search-StatusData -Session $Session | ...
 
 # do this
 PS> $Session = Get-Session -Database 'Database' -Credential (Get-Credential)
