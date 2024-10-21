@@ -58,10 +58,10 @@ function Get-GeotabEntity {
         $Body['params'].Add('search', $search)
     }
 
-    Write-Debug ($Body | ConvertTo-Json)
+    Write-Debug ($Body | ConvertTo-Json -Depth 5)
 
     # POST
-    $Content = ( Invoke-WebRequest -Uri $uri -Method Post -Body ($Body | ConvertTo-Json) -ContentType "application/json" ).Content | ConvertFrom-Json
+    $Content = ( Invoke-WebRequest -Uri $uri -Method Post -Body ($Body | ConvertTo-Json -Depth 5) -ContentType "application/json" ).Content | ConvertFrom-Json
 
     # returns PsCustomObject representation of object
     if ( $Content.result ) { $Content.result }
