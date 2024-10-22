@@ -16,7 +16,7 @@ Get all devices.
 PS> Get-GeotabDeviceType
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.DeviceType
+https://developers.geotab.com/myGeotab/apiReference/objects/DeviceType
 
 #>
 function Get-GeotabDeviceType {

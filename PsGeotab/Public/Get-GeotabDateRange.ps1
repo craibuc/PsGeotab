@@ -103,7 +103,6 @@ function Get-DateRange {
             if ($FirstDate -and $From.Date -eq $Save.Date) { $From.Date + $Time }
             elseif ($LastDate -and $From.Date -eq $To.Date) { $From.Date + $Time }
             else {
-                Write-Debug "From:$($From), EOM: $($From.AddMonths(1).AddDays(-$From.Day).Date), $( $EndOfMonth -and (-not ($From.Month -eq 1) -or -not ($From.Month -eq 7)) -and ($From.Date -eq $From.AddMonths(1).AddDays(-$From.Day).Date))"
                 # -StartOfMonth and mm/1/yy
                 if ( $StartOfMonth -and $From.Day -eq 1) { $From.Date + $Time }
         

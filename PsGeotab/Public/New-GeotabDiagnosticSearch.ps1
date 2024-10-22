@@ -18,7 +18,7 @@ The SourceSearch Id to search for in Diagnostics. Available SourceSearch options
 Search for an entry based on the specific Id.
 
 .LINK
-https://geotab.github.io/sdk/software/api/reference/#T:Geotab.Checkmate.ObjectModel.Engine.DiagnosticSearch
+https://developers.geotab.com/myGeotab/apiReference/objects/Engine.DiagnosticSearch
 
 #>
 function New-GeotabDiagnosticSearch {

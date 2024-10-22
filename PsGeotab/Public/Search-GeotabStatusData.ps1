@@ -25,7 +25,7 @@ Get DiagnosticOdometerAdjustmentId diagnostics for device `b57` that occurred to
 When searching for status data including DeviceSearch and DiagnosticSearch the system will return all records that match the search criteria and interpolate the value at the provided from/to dates when there is no record that corresponds to the date. Interpolated records are dynamically created when the request is made and can be identified as not having the ID property populated. Records with an ID are stored in the database.
 
 .LINK
-https://developers.geotab.com/myGeotab/apiReference/objects/Engine.StatusDataSearch
+https://developers.geotab.com/myGeotab/apiReference/objects/StatusDataSearch
 
 #>
 function Search-StatusData {
@@ -71,13 +71,13 @@ function Search-StatusData {
         $Body = @{
             method = 'Get'
             params = @{ 
-                typeName    = 'StatusData'
+                typeName = 'StatusData'
                 credentials = $Session.credentials
-                search      = @{
-                    deviceSearch     = @{ id = $DeviceId }
+                search = @{
+                    deviceSearch = @{ id = $DeviceId }
                     diagnosticSearch = @{ id = $DiagnosticId }
-                    fromDate         = $FromDate.ToUniversalTime().ToString("o")
-                    toDate           = $toDate.ToUniversalTime().ToString("o")
+                    fromDate = $FromDate.ToUniversalTime().ToString("o")
+                    toDate = $toDate.ToUniversalTime().ToString("o")
                 }
             }
         } 
