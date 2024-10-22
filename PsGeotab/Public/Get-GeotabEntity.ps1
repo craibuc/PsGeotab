@@ -3,8 +3,10 @@
 Get Geotab Entities such as a Device or User
 
 .PARAMETER Session
+Geotab Session Object
 
 .PARAMETER typeName
+Geotab Entity Type
 
 .PARAMETER resultsLimit
 limit the results to an integer
@@ -46,7 +48,7 @@ function Get-GeotabEntity {
         method = 'Get'
         params = @{ 
             credentials = $Session.credentials
-            typeName    = $typeName
+            typeName = $typeName
         }
     }
 
@@ -58,11 +60,14 @@ function Get-GeotabEntity {
         $Body['params'].Add('search', $search)
     }
 
-    Write-Debug ($Body | ConvertTo-Json)
+    Write-Debug ($Body | ConvertTo-Json -Depth 10)
 
     # POST
-    $Content = ( Invoke-WebRequest -Uri $uri -Method Post -Body ($Body | ConvertTo-Json) -ContentType "application/json" ).Content | ConvertFrom-Json
+    $Content = ( Invoke-WebRequest -Uri $uri -Method Post -Body ($Body | ConvertTo-Json -Depth 10) -ContentType "application/json" ).Content | ConvertFrom-Json
 
+    # returns PsCustomObject representation of object
+    if ( $Content.result ) { $Content.result }
+    # otherwise raise an exception
     # returns PsCustomObject representation of object
     if ( $Content.result ) { $Content.result }
     # otherwise raise an exception
