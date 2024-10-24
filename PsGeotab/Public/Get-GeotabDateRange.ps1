@@ -55,7 +55,7 @@ Monday, January 20, 2020 12:00:00 AM
 Assuming `Get-Date` is 01/01/2020
 
 #>
-function Get-DateRange {
+function Get-GeotabDateRange {
 
     [CmdletBinding()]
     param

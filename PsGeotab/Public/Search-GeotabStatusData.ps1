@@ -28,7 +28,7 @@ When searching for status data including DeviceSearch and DiagnosticSearch the s
 https://developers.geotab.com/myGeotab/apiReference/objects/StatusDataSearch
 
 #>
-function Search-StatusData {
+function Search-GeotabStatusData {
 
     [CmdletBinding()]
     param(
