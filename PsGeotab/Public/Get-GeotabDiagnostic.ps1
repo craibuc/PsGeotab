@@ -13,7 +13,7 @@ Diagnostics cannot be added, set or removed via the API.
 https://developers.geotab.com/myGeotab/apiReference/objects/Diagnostic
 
 #>
-function Get-Diagnostic {
+function Get-GeotabDiagnostic {
 
 	[CmdletBinding()]
 	param(
@@ -39,9 +39,9 @@ function Get-Diagnostic {
 		$Body = @{
 			method = 'Get'
 			params = @{ 
-				typeName    = 'Diagnostic'
+				typeName = 'Diagnostic'
 				credentials = $Session.credentials
-				search      = @{
+				search = @{
 					diagnosticType = ''
 				}
 			}

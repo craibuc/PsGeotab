@@ -23,7 +23,7 @@ Search for an entry based on the specific Id.  NOT the deviceId.
 https://developers.geotab.com/myGeotab/apiReference/objects/FuelTaxDetailSearch
 
 #>
-function Search-FuelTaxDetail {
+function Search-GeotabFuelTaxDetail {
 
     [CmdletBinding()]
     param (
@@ -56,9 +56,9 @@ function Search-FuelTaxDetail {
     $Body = @{
         method = 'Get'
         params = @{ 
-            typeName    = 'FuelTaxDetail'
+            typeName = 'FuelTaxDetail'
             credentials = $Session.credentials
-            search      = @{}
+            search = @{}
         }
     }
 
