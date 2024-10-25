@@ -1,3 +1,28 @@
+<#
+.SYNOPSIS
+Modify a Geotab Enitiy
+
+.PARAMETER Session
+Geotab session object.
+
+.PARAMETER typeName
+The Entity type
+
+.PARAMETER Entity
+The Enitiy Data 
+
+.EXAMPLE
+PS> Set-GeotabEntity -Session $Session -typeName 'User' -entity $UserData
+
+Submit an update to the provided User definded in $UserData
+
+.NOTES
+To Archive a User or Device set the ToDate of that user a current Datetime.
+
+.LINK
+https://developers.geotab.com/myGeotab/apiReference/methods/Set
+
+#>
 function Set-GeotabEntity {
 
     [CmdletBinding(SupportsShouldProcess)]
