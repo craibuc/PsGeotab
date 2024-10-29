@@ -1,28 +1,31 @@
-# /PsGeotab
-$ProjectDirectory = Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent
+BeforeAll {
+    # /PsGeotab
+    $ProjectDirectory = Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent
 
-# /PsGeotab/PsGeotab/Private
-$PrivatePath = Join-Path $ProjectDirectory "/PsGeotab/Private/"
+    # /PsGeotab/PsGeotab/Private
+    $PrivatePath = Join-Path $ProjectDirectory "/PsGeotab/Private/"
 
-# /PsGeotab/Tests/Fixtures/
-# $FixturesDirectory = Join-Path $ProjectDirectory "/Tests/Fixtures/"
+    # /PsGeotab/Tests/Fixtures/
+    # $FixturesDirectory = Join-Path $ProjectDirectory "/Tests/Fixtures/"
 
-# ConvertTo-PlainText.ps1
-$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
+    # ConvertTo-PlainText.ps1
+    $sut = (Split-Path -Leaf $PSCommandPath) -replace '\.Tests\.', '.'
 
-# . /PsGeotab/PsGeotab/Private/ConvertTo-PlainText.ps1
-. (Join-Path $PrivatePath $sut)
+    # . /PsGeotab/PsGeotab/Private/ConvertTo-PlainText.ps1
+    . (Join-Path $PrivatePath $sut)
+}
 
 Describe "ConvertTo-PlainText" -tag 'Unit' {
+    BeforeAll {
+        # dummy password
+        $Expected = 'Pa55w0rd'
 
-    # dummy password
-    $Expected = 'Pa55w0rd'
+        # create SecureString
+        $SecureString = ConvertTo-SecureString $Expected -AsPlainText -Force
 
-    # create SecureString
-    $SecureString = ConvertTo-SecureString $Expected -AsPlainText -Force
-
-    # create a PsCredential
-    $Credential = New-Object System.Management.Automation.PSCredential ("LoremIpsum", $SecureString)
+        # create a PsCredential
+        $Credential = New-Object System.Management.Automation.PSCredential ("LoremIpsum", $SecureString)
+    }
 
     Context "SecureString provided by named parameter" {
 
