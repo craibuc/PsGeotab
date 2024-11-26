@@ -103,6 +103,7 @@ Describe "Get-GeotabEntity" -Tag 'unit' {
         }
 
         BeforeEach {
+
             Get-GeotabEntity -Session $Session -typeName $typeName
         }
 
@@ -130,48 +131,88 @@ Describe "Get-GeotabEntity" -Tag 'unit' {
                 $ParsedBody.params.typeName -eq $typeName    
             }
         }
-
-        Context "when the resultsLimit parameter is supplied" {
-
-            BeforeEach {
-                # arrange
-                $resultLimit = 100
-
-                # act
-                Get-GeotabEntity -Session $Session -typeName $typeName -resultsLimit $resultLimit
-            }
-    
-            It "sets the body.params.resultsLimit correctly" {
-                # assert
-                Should -Invoke Invoke-WebRequest -ParameterFilter {
-                    $ParsedBody = ($Body | ConvertFrom-Json)
-                    $ParsedBody.params.resultsLimit -eq $resultLimit
-                }
-            }
-    
-        } # /resultsLimit
-
-        Context "when the search parameter is supplied" {
-
-            BeforeEach {
-                # arrange
-                $search = @{ employeeNumber = 'ABC123' }
-
-                # act
-                Get-GeotabEntity -Session $Session -typeName $typeName -search $search
-            }
-    
-            It "sets the body.params.search correctly" {
-                # assert
-                Should -Invoke Invoke-WebRequest -ParameterFilter {
-                    $ParsedBody = ($Body | ConvertFrom-Json)
-
-                    ( Compare-Object -ReferenceObject ([pscustomobject]$search) -DifferenceObject $ParsedBody.params.search ).SideIndicator.Count -eq 0
-                }
-            }
-    
-        } # /search
-
     }
+
+    Context "when the resultsLimit parameter is supplied" {
+
+        BeforeAll {
+            # arrange
+            $Session = [PsCustomObject]@{
+                path = 'servername'
+                credentials = [PsCustomObject]@{
+                    sessionId = 123456
+                }
+            }
+            $typeName = 'User'
+        
+            Mock Invoke-WebRequest {
+                $Fixture = 'Get-User.Response.json'
+                $Content = Get-Content (Join-Path $FixturesDirectory $Fixture) -Raw
+        
+                $Response = New-MockObject -Type  Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject
+                $Response | Add-Member -Type NoteProperty -Name 'Content' -Value $Content -Force
+                $Response
+            }
+        
+            # arrange
+            $resultLimit = 100
+        }
+        
+        BeforeEach {
+            # act
+            Get-GeotabEntity -Session $Session -typeName $typeName -resultsLimit $resultLimit
+        }
+    
+        It "sets the body.params.resultsLimit correctly" {
+            # assert
+            Should -Invoke Invoke-WebRequest -ParameterFilter {
+                $ParsedBody = ($Body | ConvertFrom-Json)
+                $ParsedBody.params.resultsLimit -eq $resultLimit
+            }
+        }
+    
+    } # /resultsLimit
+
+    Context "when the search parameter is supplied" {
+
+        BeforeAll {
+            # arrange
+            $Session = [PsCustomObject]@{
+                path = 'servername'
+                credentials = [PsCustomObject]@{
+                    sessionId = 123456
+                }
+            }
+            $typeName = 'User'
+            
+            Mock Invoke-WebRequest {
+                $Fixture = 'Get-User.Response.json'
+                $Content = Get-Content (Join-Path $FixturesDirectory $Fixture) -Raw
+            
+                $Response = New-MockObject -Type  Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject
+                $Response | Add-Member -Type NoteProperty -Name 'Content' -Value $Content -Force
+                $Response
+            }
+            # arrange
+            $Search = @{ employeeNumber = 'ABC123' }
+        }
+
+        BeforeEach {
+            # act
+            Get-GeotabEntity -Session $Session -typeName $typeName -search $Search
+        }
+    
+        It "sets the body.params.search correctly" {
+            # assert
+            Should -Invoke Invoke-WebRequest -ParameterFilter {
+                $ParsedBody = ($Body | ConvertFrom-Json -Depth 10)
+
+                Write-Host $ParsedBody
+
+                    ( Compare-Object -ReferenceObject ([pscustomobject]$Search) -DifferenceObject $ParsedBody.params.search ).SideIndicator.Count -eq 0
+            }
+        }
+    
+    } # /search
 
 }

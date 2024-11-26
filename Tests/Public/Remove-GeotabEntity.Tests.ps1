@@ -9,7 +9,6 @@ BeforeAll {
     $SUT = (Split-Path -Leaf $PSCommandPath) -replace '\.Tests\.', '.'
 
     $Path = Join-Path $PublicPath $SUT
-    Write-Host "Path: $Path"
 
     . (Join-Path $PublicPath $SUT)
 
@@ -75,6 +74,7 @@ Describe "Remove-GeotabEntity" -Tag 'unit' {
                 }
             }
             $typeName = 'User'
+            
             $entity = @{
                 id = 'b9'
                 firstName = 'First'
